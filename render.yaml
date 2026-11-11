@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: avisos-la-republica
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false

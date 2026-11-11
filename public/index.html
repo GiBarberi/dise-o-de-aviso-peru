@@ -1,0 +1,240 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Avisos La República</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: módulo del cotizador — barra de marca con el degradé del menú, tarjetas blancas como "Generar nueva cotización", dos columnas que se apilan en el celular */
+:root{
+  --bg:#F3F4F6; --card:#FFFFFF; --ink:#111827; --ink2:#374151; --ink3:#6B7280; --line:#E5E7EB; --field:#CCCCCC;
+  --navy:#0A4A75; --blue:#0D5F96; --sea:#17A591; --bluesoft:#E6F1F8; --seasoft:#E3F5F1;
+  --green:#16A34A; --red:#DC2626; --redsoft:#FDECEC; --sun:#B7791F; --sunsoft:#FEF5E1;
+  --paper:#FFFFFF; --paperInk:#111111;
+  --f-body:"Roboto", system-ui, sans-serif; --f-mono:"Roboto Mono", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0F172A;--card:#162033;--ink:#F1F5F9;--ink2:#CBD5E1;--ink3:#94A3B8;--line:#26334A;--field:#334155;--bluesoft:#12304A;--seasoft:#0F3A35;--redsoft:#3B1C1F;--sunsoft:#3A2F17;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0F172A;--card:#162033;--ink:#F1F5F9;--ink2:#CBD5E1;--ink3:#94A3B8;--line:#26334A;--field:#334155;--bluesoft:#12304A;--seasoft:#0F3A35;--redsoft:#3B1C1F;--sunsoft:#3A2F17;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.45;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px 40px}
+.wrap{max-width:1200px;margin:0 auto;display:grid;gap:16px}
+header{background:linear-gradient(100deg,var(--navy),var(--blue) 55%,var(--sea));color:#E8F7FB;border-radius:14px;padding:16px 20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+.brand{display:flex;align-items:center;gap:14px}
+.logo{width:42px;height:42px;border-radius:11px;background:#fff;display:grid;place-items:center;flex:none}
+.logo span{width:24px;height:24px;border-radius:50%;border:5px solid var(--blue);border-right-color:var(--sea);display:block}
+h1{font-weight:700;font-size:22px;margin:0;letter-spacing:-.005em;color:#fff;text-wrap:balance}
+.kicker{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#BFE6EE;font-weight:500}
+.hnote{font-size:13px;background:rgba(255,255,255,.14);border-radius:999px;padding:6px 12px;color:#fff}
+.grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:16px;align-items:start}
+@media (max-width:880px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;display:grid;gap:12px;min-width:0;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.card h2{font-size:18px;font-weight:600;margin:0;color:var(--ink)}
+.card h2 b{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--bluesoft);color:var(--blue);font-size:13px;margin-right:8px;vertical-align:2px}
+label{font-size:15px;font-weight:500;color:var(--ink);display:grid;gap:6px}
+textarea,input,select{font:inherit;font-size:15px;color:var(--ink);background:var(--card);border:1px solid var(--field);border-radius:4px;padding:8px 10px;width:100%}
+textarea{resize:vertical;line-height:1.4}
+textarea:focus,input:focus,select:focus,button:focus-visible{outline:2px solid var(--blue);outline-offset:1px}
+.row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+@media (max-width:480px){.row{grid-template-columns:1fr 1fr}}
+.seg{display:flex;border:1px solid var(--field);border-radius:6px;overflow:hidden;background:var(--card)}
+.seg button{flex:1;border:0;background:transparent;color:var(--ink2);font:inherit;font-size:14px;padding:8px 4px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--blue);color:#fff;font-weight:500}
+.btn{font:inherit;font-size:15px;font-weight:500;border-radius:8px;padding:9px 16px;border:1px solid var(--field);background:var(--card);color:var(--ink);cursor:pointer}
+.btn.primary{background:var(--green);border-color:var(--green);color:#fff;font-weight:600;box-shadow:0 2px 6px rgba(22,163,74,.25)}
+.btn.ia{background:var(--blue);border-color:var(--blue);color:#fff}
+.btn:disabled{opacity:.5;cursor:default}
+.btnrow{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.note{font-size:13px;color:var(--ink3)}
+.ai{background:var(--seasoft);border:1px solid color-mix(in srgb,var(--sea) 35%,transparent);border-radius:10px;padding:12px;display:grid;gap:8px}
+.ai p{margin:0;font-size:14px;color:var(--ink2)}
+.warn{background:var(--sunsoft);color:var(--ink);border-radius:8px;padding:8px 10px;font-size:14px}
+.warn:empty{display:none}
+.opts{display:grid;gap:6px}
+.opt{display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card);cursor:pointer;text-align:left;font:inherit;color:var(--ink)}
+.opt:hover:not(.no){border-color:var(--blue)}
+.opt[aria-pressed="true"]{border-color:var(--blue);box-shadow:0 0 0 1px var(--blue) inset;background:var(--bluesoft)}
+.opt.no{opacity:.45;cursor:default}
+.mc{font-size:22px;font-weight:700;line-height:1;color:var(--navy)}
+:root[data-theme="dark"] .mc{color:#7CC4F0}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .mc{color:#7CC4F0}}
+.mc small{display:block;font-family:var(--f-mono);font-size:10px;color:var(--ink3);font-weight:400;margin-top:4px}
+.bar{height:6px;border-radius:4px;background:var(--line);overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:var(--sea)}
+.opt.over .bar i{background:var(--red)}
+.meta{font-size:13px;color:var(--ink2)}
+.price{font-variant-numeric:tabular-nums;font-weight:700;text-align:right;white-space:nowrap}
+.price small{display:block;font-weight:400;font-size:12px;color:var(--ink3)}
+.pill{display:inline-block;font-size:11px;font-weight:500;padding:2px 8px;border-radius:20px;margin-left:6px;vertical-align:1px}
+.pill.rec{background:var(--green);color:#fff}
+.pill.chk{background:var(--sunsoft);color:var(--sun)}
+.proofwrap{display:grid;gap:8px;justify-items:center;background:var(--bg);border:1px dashed var(--field);border-radius:10px;padding:18px 10px;overflow-x:auto}
+.proof{background:var(--paper);color:var(--paperInk);box-shadow:0 6px 18px rgba(10,74,117,.15)}
+.proof canvas{display:block}
+.dims{font-family:var(--f-mono);font-size:11.5px;color:var(--ink3)}
+.why{font-size:15px;color:var(--ink2);margin:0;background:var(--bluesoft);border-radius:8px;padding:10px 12px}
+.why b{color:var(--ink)}
+footer{font-size:13px;color:var(--ink3);padding-top:4px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+</head><body>
+<div class="wrap">
+  <header>
+    <div class="brand"><div class="logo" aria-hidden="true"><span></span></div><div><div class="kicker">Cotizador · Perú</div><h1>Diseñador de avisos · La República</h1></div></div>
+    <div class="hnote">Tarifa legal 2026 · blanco y negro · precios con IGV</div>
+  </header>
+
+  <div class="grid">
+    <!-- LEFT -->
+    <section class="card" aria-labelledby="h-txt">
+      <h2 id="h-txt"><b>1</b>Texto del aviso</h2>
+
+      <div class="ai" id="aibox">
+        <p><b>Pegá el texto como llegó</b> y la IA lo separa en título, cuerpo y firma, sin cambiar el contenido legal. También avisa si falta un dato habitual.</p>
+        <textarea id="raw" rows="4" placeholder="Pegá acá el texto completo del cliente…"></textarea>
+        <div class="btnrow"><button class="btn ia" id="btnAI" type="button">Ordenar con IA</button><span class="note" id="aiStatus"></span></div>
+      </div>
+
+      <label for="t">Título<input id="t" type="text"></label>
+      <label for="b">Cuerpo<textarea id="b" rows="9"></textarea></label>
+      <label for="f">Firma<textarea id="f" rows="2"></textarea></label>
+      <div class="warn" id="faltan"></div>
+
+      <h2><b>2</b>Publicación</h2>
+      <div class="row">
+        <label>Cobertura<div class="seg" role="group" aria-label="Cobertura"><button type="button" data-cob="nac" aria-pressed="true">Nacional</button><button type="button" data-cob="lima" aria-pressed="false">Lima</button></div></label>
+        <label>Tarifa<div class="seg" role="group" aria-label="Tarifa"><button type="button" data-tar="reg" aria-pressed="true">Regular</button><button type="button" data-tar="ag" aria-pressed="false">Agencia</button></div></label>
+        <label for="fs">Letra mínima<select id="fs"><option value="6.5">6,5 pt</option><option value="7" selected>7 pt</option><option value="7.5">7,5 pt</option><option value="8">8 pt</option></select></label>
+      </div>
+      <div class="note">Columna = 4 cm · módulo = 1,94 cm de alto (el primero, 1,52 cm). La letra mínima define qué tan apretado puede ir el texto.</div>
+    </section>
+
+    <!-- RIGHT -->
+    <section class="card" aria-labelledby="h-opt">
+      <h2 id="h-opt"><b>3</b>Tamaño recomendado</h2>
+      <p class="why" id="why"></p>
+      <div class="opts" id="opts"></div>
+
+      <h2><b>4</b>Prueba a escala real</h2>
+      <div class="proofwrap"><div class="proof" id="proof"><canvas id="cv"></canvas></div><div class="dims" id="dims"></div></div>
+      <div class="btnrow"><button class="btn primary" id="btnPDF" type="button">Descargar PDF</button><span class="note" id="pdfStatus">El PDF sale con la medida exacta del módulo, listo para enviar al diario.</span></div>
+    </section>
+  </div>
+
+  <footer>Versión de prueba independiente. El texto de ejemplo es ficticio. Revisar con el diario: tipografía e interlineado que exige para edictos, y el precio regular del 9x3, que en el tarifario figura como S/ 365,33 (parece un error).</footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+const FORMATS=[ // mod, col, alto cm, ancho cm, [nacReg, nacAg, limaReg, limaAg]
+ {m:3,c:1,h:5.43,w:4,  p:[126.26,107.32,115.64,98.29]},
+ {m:3,c:2,h:5.43,w:8.4,p:[246.62,209.63,225.38,191.57]},
+ {m:4,c:2,h:7.37,w:8.4,p:[366.98,311.93,332.76,282.85]},
+ {m:4,c:3,h:7.37,w:12.8,p:[548.70,466.40,499.14,424.27]},
+ {m:5,c:3,h:9.31,w:12.8,p:[653.72,555.66,595.90,506.52]},
+ {m:6,c:3,h:11.25,w:12.8,p:[784.70,667.00,715.08,607.82]},
+ {m:7,c:3,h:13.19,w:12.8,p:[915.68,778.33,834.26,709.12]},
+ {m:9,c:3,h:17.07,w:12.8,p:[null,1025.07,null,932.79],chk:true}
+];
+const SAMPLE={t:"EDICTO",b:"Ante el 3.er Juzgado Civil de Lima, Expediente N.° 01234-2026-0-1801-JR-CI-03, se tramita la sucesión intestada de don CARLOS ALBERTO RAMOS QUISPE, fallecido el 14 de agosto de 2026 en el distrito de Miraflores, provincia y departamento de Lima, promovida por su cónyuge doña ROSA ELENA DÍAZ TORRES y sus hijos MIGUEL ÁNGEL y ANA LUCÍA RAMOS DÍAZ.\nSe cita a quienes se consideren con derecho a la herencia para que se apersonen al proceso dentro del plazo de ley, bajo apercibimiento.\nLima, 5 de noviembre de 2026.",f:"Dra. PATRICIA SALAZAR MENDOZA\nSecretaria Judicial"};
+const $=id=>document.getElementById(id);
+const st={cob:"nac",tar:"reg",sel:null};
+const {jsPDF}=window.jspdf;
+const PT=0.352778, PAD=1.8, LH=1.16;
+
+function blocks(){return {t:$("t").value.trim(),b:$("b").value.trim().split(/\n+/).map(s=>s.trim()).filter(Boolean),f:$("f").value.trim().split(/\n+/).map(s=>s.trim()).filter(Boolean)};}
+
+// lay out text in a box of w×h mm at size fs; returns needed height and draw ops (uses jsPDF metrics so preview = PDF)
+function layout(doc,B,wmm,fs){
+  const iw=wmm-2*PAD, ops=[]; let y=PAD;
+  const lh=s=>s*LH*PT, tfs=fs+1.5;
+  if(B.t){doc.setFont("helvetica","bold");doc.setFontSize(tfs);const L=doc.splitTextToSize(B.t.toUpperCase(),iw);L.forEach(s=>{y+=lh(tfs);ops.push({s,x:wmm/2,y:y-lh(tfs)*0.22,fs:tfs,b:1,a:"center"});});y+=lh(fs)*0.45;}
+  doc.setFont("helvetica","normal");doc.setFontSize(fs);
+  B.b.forEach((p,pi)=>{const L=doc.splitTextToSize(p,iw);L.forEach((s,i)=>{y+=lh(fs);ops.push({s,x:PAD,y:y-lh(fs)*0.22,fs,b:0,a:(i<L.length-1)?"justify":"left",w:iw});});if(pi<B.b.length-1)y+=lh(fs)*0.35;});
+  if(B.f.length){y+=lh(fs)*0.6;doc.setFont("helvetica","bold");B.f.forEach((p,i)=>{const L=doc.splitTextToSize(p,iw);L.forEach(s=>{y+=lh(fs);ops.push({s,x:wmm/2,y:y-lh(fs)*0.22,fs,b:i===0?1:0,a:"center"});});});}
+  return {h:y+PAD,ops};
+}
+function maxFont(doc,B,f){let lo=5,hi=11;for(let k=0;k<14;k++){const mid=(lo+hi)/2;layout(doc,B,f.w*10,mid).h<=f.h*10?lo=mid:hi=mid;}return Math.floor(lo*4)/4;}
+function price(f){const i=(st.cob==="nac"?0:2)+(st.tar==="reg"?0:1);return f.p[i];}
+const money=v=>v==null?"—":"S/ "+v.toLocaleString("es-PE",{minimumFractionDigits:2,maximumFractionDigits:2});
+
+let rows=[];
+function compute(){
+  const doc=new jsPDF({unit:"mm"}), B=blocks(), min=+$("fs").value;
+  rows=FORMATS.map(f=>{const mf=maxFont(doc,B,f);const need=layout(doc,B,f.w*10,min).h;return {...f,mf,fill:need/(f.h*10),fits:mf>=min,pr:price(f)};});
+  const ok=rows.filter(r=>r.fits&&r.pr!=null).sort((a,b)=>a.pr-b.pr);
+  const rec=ok[0]||null;
+  if(!st.sel||!rows.find(r=>r.m+"x"+r.c===st.sel&&r.fits)) st.sel=rec?rec.m+"x"+rec.c:null;
+  renderOpts(rec);renderProof();
+  const why=$("why");
+  if(!B.b.length){why.innerHTML="Escribí o pegá el texto para calcular el tamaño.";return;}
+  if(rec){const alt=ok.find(r=>r!==rec&&r.mf>=rec.mf+0.5);
+    why.innerHTML=`<b>${rec.m}x${rec.c} (${rec.h.toFixed(2).replace(".",",")} × ${String(rec.w).replace(".",",")} cm)</b> es el formato más económico donde el texto entra con letra de ${fmtPt(rec.mf)} o más. ${alt?`Si querés que se lea más cómodo, <b>${alt.m}x${alt.c}</b> permite ${fmtPt(alt.mf)} por ${money(alt.pr)}.`:""}`;}
+  else why.innerHTML="El texto no entra en los formatos de la tarifa legal con esa letra mínima. Probá con una letra más chica o consultá al diario por un formato mayor.";
+}
+const fmtPt=v=>v>=10.75?"11 pt o más":v.toString().replace(".",",")+" pt";
+function renderOpts(rec){
+  const box=$("opts");box.innerHTML="";
+  rows.forEach(r=>{
+    const id=r.m+"x"+r.c,b=document.createElement("button");b.type="button";b.className="opt"+(r.fits?"":" no")+(r.fill>1?" over":"");
+    b.setAttribute("aria-pressed",String(st.sel===id));b.disabled=!r.fits;
+    const pct=Math.min(100,Math.round(r.fill*100));
+    b.innerHTML=`<div class="mc">${id}<small>mod × col</small></div><div><div class="meta">${r.h.toFixed(2).replace(".",",")} × ${String(r.w).replace(".",",")} cm · ${r.fits?"entra con letra hasta "+fmtPt(r.mf):"no entra"}${rec&&id===rec.m+"x"+rec.c?'<span class="pill rec">Recomendado</span>':""}${r.chk?'<span class="pill chk">Revisar precio</span>':""}</div><div class="bar" aria-hidden="true"><i style="width:${pct}%"></i></div></div><div class="price">${money(r.pr)}<small>${st.cob==="nac"?"Nacional":"Lima"} · ${st.tar==="reg"?"regular":"agencia"}</small></div>`;
+    b.onclick=()=>{if(!r.fits)return;st.sel=id;renderOpts(rec);renderProof();};
+    box.appendChild(b);
+  });
+}
+function selected(){return rows.find(r=>r.m+"x"+r.c===st.sel);}
+function opsFor(r){const doc=new jsPDF({unit:"mm"});return layout(doc,blocks(),r.w*10,r.mf).ops;}
+function renderProof(){
+  const r=selected(),cv=$("cv"),ctx=cv.getContext("2d");
+  if(!r){cv.width=10;cv.height=10;$("dims").textContent="";$("btnPDF").disabled=true;return;}
+  $("btnPDF").disabled=false;
+  const pxmm=96/25.4, wpx=r.w*10*pxmm, hpx=r.h*10*pxmm, dpr=Math.max(2,window.devicePixelRatio||1);
+  cv.width=Math.round(wpx*dpr);cv.height=Math.round(hpx*dpr);cv.style.width=wpx+"px";cv.style.height=hpx+"px";
+  ctx.setTransform(dpr*pxmm,0,0,dpr*pxmm,0,0);ctx.fillStyle="#fff";ctx.fillRect(0,0,r.w*10,r.h*10);
+  ctx.strokeStyle="#111";ctx.lineWidth=0.3;ctx.strokeRect(0.15,0.15,r.w*10-0.3,r.h*10-0.3);ctx.fillStyle="#111";
+  opsFor(r).forEach(o=>{ctx.font=`${o.b?"700":"400"} ${o.fs*PT}px Helvetica, Arial, sans-serif`;ctx.textAlign=o.a==="center"?"center":"left";
+    if(o.a==="justify"){const words=o.s.split(" ");const tw=words.reduce((a,w)=>a+ctx.measureText(w).width,0);const gap=words.length>1?(o.w-tw)/(words.length-1):0;let x=o.x;words.forEach(w=>{ctx.fillText(w,x,o.y);x+=ctx.measureText(w).width+gap;});}
+    else ctx.fillText(o.s,o.x,o.y);});
+  $("dims").textContent=`${r.m}x${r.c} · ${r.h.toFixed(2).replace(".",",")} × ${String(r.w).replace(".",",")} cm · letra ${fmtPt(r.mf)} · tamaño real en pantalla aproximado`;
+}
+function buildDoc(r){
+  const W=r.w*10,H=r.h*10,doc=new jsPDF({unit:"mm",format:[W,H],orientation:W>H?"landscape":"portrait"});
+  doc.setLineWidth(0.3);doc.rect(0.15,0.15,W-0.3,H-0.3);
+  opsFor(r).forEach(o=>{doc.setFont("helvetica",o.b?"bold":"normal");doc.setFontSize(o.fs);
+    if(o.a==="justify")doc.text(o.s,o.x,o.y,{align:"justify",maxWidth:o.w});else doc.text(o.s,o.x,o.y,{align:o.a});});
+  doc.setProperties({title:"Aviso La República "+r.m+"x"+r.c});
+  return doc;
+}
+
+// events
+["t","b","f"].forEach(id=>$(id).addEventListener("input",()=>{clearTimeout(window._d);window._d=setTimeout(compute,180);}));
+$("fs").addEventListener("change",compute);
+document.querySelectorAll("[data-cob]").forEach(b=>b.onclick=()=>{st.cob=b.dataset.cob;document.querySelectorAll("[data-cob]").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));compute();});
+document.querySelectorAll("[data-tar]").forEach(b=>b.onclick=()=>{st.tar=b.dataset.tar;document.querySelectorAll("[data-tar]").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));compute();});
+
+$("t").value=SAMPLE.t;$("b").value=SAMPLE.b;$("f").value=SAMPLE.f;
+compute();
+
+// standalone: descarga directa + IA por /api/ordenar
+$("btnPDF").onclick=()=>{
+  const r=selected();if(!r)return;
+  buildDoc(r).save(`aviso_LaRepublica_${r.m}x${r.c}.pdf`);
+  $("pdfStatus").textContent="PDF descargado.";
+};
+$("btnAI").onclick=async()=>{
+  const raw=$("raw").value.trim();if(!raw){$("aiStatus").textContent="Pegá primero el texto.";return;}
+  $("btnAI").disabled=true;$("aiStatus").textContent="Pensando…";
+  try{
+    const res=await fetch("/api/ordenar",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({texto:raw})});
+    if(!res.ok)throw new Error(await res.text());
+    const j=await res.json();
+    $("t").value=j.titulo||"";$("b").value=(j.cuerpo||[]).join("\n");$("f").value=(j.firma||[]).join("\n");
+    $("faltan").textContent=(j.faltantes&&j.faltantes.length)?"Revisar, podría faltar: "+j.faltantes.join(", ")+".":"";
+    $("aiStatus").textContent="Listo. Revisá el texto antes de enviar.";compute();
+  }catch(e){$("aiStatus").textContent="No se pudo ordenar el texto (¿falta configurar la clave de Gemini?). Podés editarlo a mano.";}
+  finally{$("btnAI").disabled=false;}
+};
+</script>
+
+</body></html>
