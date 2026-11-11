@@ -232,7 +232,7 @@ $("btnAI").onclick=async()=>{
     $("t").value=j.titulo||"";$("b").value=(j.cuerpo||[]).join("\n");$("f").value=(j.firma||[]).join("\n");
     $("faltan").textContent=(j.faltantes&&j.faltantes.length)?"Revisar, podría faltar: "+j.faltantes.join(", ")+".":"";
     $("aiStatus").textContent="Listo. Revisá el texto antes de enviar.";compute();
-  }catch(e){$("aiStatus").textContent="No se pudo ordenar el texto (¿falta configurar la clave de Gemini?). Podés editarlo a mano.";}
+  }catch(e){$("aiStatus").textContent="La IA no respondió (puede estar saturada). Probá de nuevo en un minuto o editá el texto a mano.";}
   finally{$("btnAI").disabled=false;}
 };
 </script>
