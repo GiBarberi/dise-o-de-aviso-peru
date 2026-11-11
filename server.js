@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3000;
 const MODELS = (process.env.GEMINI_MODELS || "gemini-flash-latest,gemini-flash-lite-latest,gemini-2.5-flash")
   .split(",").map((m) => m.trim()).filter(Boolean);
 
-const PROMPT = (texto) => `Sos asistente de un vendedor de avisos legales en Perú. Separá el texto de abajo en título, cuerpo y firma para un aviso en el diario La República.
+const PROMPT = (texto, diario) => `Sos asistente de un vendedor de avisos legales en Perú. Separá el texto de abajo en título, cuerpo y firma para un aviso en el diario ${diario}.
 Reglas: no cambies, resumas ni agregues contenido legal; solo corregí espacios dobles y saltos de línea rotos. El título es corto (por ejemplo EDICTO, AVISO, CONVOCATORIA, REMATE). El cuerpo es una lista de párrafos. La firma son las líneas finales con nombre y cargo, si existen. En "faltantes" listá datos que suelen ser obligatorios y no aparecen (número de expediente, juzgado, fecha, nombre de quien firma); lista vacía si no falta nada.
 Respondé solo con JSON: {"titulo":"","cuerpo":[""],"firma":[""],"faltantes":[""]}
 
@@ -30,8 +30,8 @@ async function readBody(req) {
 
 async function ordenar(req, res) {
   if (!process.env.GEMINI_API_KEY) return send(res, 500, { error: "Falta GEMINI_API_KEY" });
-  let texto = "";
-  try { texto = String(JSON.parse(await readBody(req)).texto || "").slice(0, 8000).trim(); }
+  let texto = "", diario = "La República";
+  try { const j = JSON.parse(await readBody(req)); texto = String(j.texto || "").slice(0, 8000).trim(); diario = String(j.diario || diario).slice(0, 40); }
   catch { return send(res, 400, { error: "JSON inválido" }); }
   if (!texto) return send(res, 400, { error: "Texto vacío" });
 
@@ -42,7 +42,7 @@ async function ordenar(req, res) {
       method: "POST",
       headers: { "Content-Type": "application/json", "x-goog-api-key": process.env.GEMINI_API_KEY },
       body: JSON.stringify({
-        contents: [{ role: "user", parts: [{ text: PROMPT(texto) }] }],
+        contents: [{ role: "user", parts: [{ text: PROMPT(texto, diario) }] }],
         generationConfig: { responseMimeType: "application/json", temperature: 0 },
       }),
     });

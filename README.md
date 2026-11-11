@@ -1,6 +1,6 @@
-# Avisos La República · versión para Render
+# Diseñador de avisos Perú · versión para Render
 
-Herramienta para vendedores de Perú: recomienda el formato de la tarifa legal 2026 de La República y descarga el aviso en PDF a medida. La IA (Gemini, cuota gratuita) ordena el texto en título, cuerpo y firma.
+Herramienta para vendedores de Perú: recomienda el formato más económico en La República, El Popular, Perú21 y La Razón (tarifas 2026) y descarga el aviso en PDF a medida. La IA (Gemini, cuota gratuita) ordena el texto en título, cuerpo y firma.
 
 ## Probar en tu computadora
 
