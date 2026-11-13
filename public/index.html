@@ -464,6 +464,8 @@ function compute(){
   if(!d.mods){why.innerHTML=`<b>${d.name}</b>: faltan las medidas en cm del módulo y la columna para calcular el tamaño. Abajo, los precios del tarifario.`;return;}
   if(rec){const alt=ok.find(r=>r!==rec&&r.mf>=rec.mf+0.5);
     why.innerHTML=`<b>${rec.k} (${dec(rec.h)} × ${dec(rec.w)} cm)</b> es el formato más económico de esta tarifa donde el aviso entra con letra de ${fmtPt(rec.mf).replace(" o más","")} o más. ${alt?`Si querés que se lea más cómodo, <b>${alt.k}</b> permite ${fmtPt(alt.mf)} por ${money(alt.pr)}.`:""}`;}
+  else if(rows.some(r=>r.fits&&r.pr==null)){const f=rows.filter(r=>r.fits&&r.pr==null).map(r=>r.k).join(", ");
+    why.innerHTML=`El texto entra en <b>${f}</b>, pero ese formato no tiene precio en «${esc(T().variants.find(v=>v[0]===st.vr)[1])}». Probá con otro precio de la lista o una letra más chica.`;}
   else why.innerHTML=`El texto no entra en los formatos de esta tarifa con letra de ${dec(min)} pt. Probá con una letra más chica u otra tarifa${M.body.some(b=>b.k==="tbl"&&b.n>4)?"; las tablas con muchas columnas necesitan formatos anchos":""}.`;
 }
 function renderOpts(rec){
