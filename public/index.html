@@ -126,11 +126,11 @@ footer{font-size:13px;color:var(--ink3);padding-top:4px}
       <div class="ai" id="aibox">
         <div class="seg" role="group" aria-label="Cómo cargar el texto">
           <button type="button" id="mPaste" aria-pressed="true">Pegar texto</button>
-          <button type="button" id="mFile" aria-pressed="false">Subir PDF, Word o foto</button>
+          <button type="button" id="mFile" aria-pressed="false">Subir PDF, Word, Excel o foto</button>
         </div>
         <div id="paneP"><textarea id="raw" rows="4" aria-label="Texto completo del cliente" placeholder="Pegá acá el texto completo del cliente…"></textarea></div>
         <div id="paneF" hidden>
-          <label class="drop" id="drop" for="file"><b>Elegí o arrastrá el archivo</b><span class="note">PDF, Word (.docx) o fotos JPG/PNG · hasta 3 fotos si el edicto tiene varias páginas</span><input class="vh" id="file" type="file" accept=".pdf,.docx,.doc,image/jpeg,image/png,image/webp" multiple></label>
+          <label class="drop" id="drop" for="file"><b>Elegí o arrastrá el archivo</b><span class="note">PDF, Word (.docx), Excel o fotos JPG/PNG · hasta 3 fotos si el edicto tiene varias páginas · el Excel se inserta como tabla en el cuerpo</span><input class="vh" id="file" type="file" accept=".pdf,.docx,.doc,.xlsx,.xls,.csv,.ods,image/jpeg,image/png,image/webp" multiple></label>
           <div class="files" id="files"></div>
         </div>
         <p id="aiHelp">La IA separa el texto en encabezado, título, cuerpo, fecha y firmas según el tipo de aviso, sin cambiar el contenido legal.</p>
@@ -182,7 +182,7 @@ footer{font-size:13px;color:var(--ink3);padding-top:4px}
       <p class="why" id="why"></p>
       <div class="opts" id="opts"></div>
       <h2><b>4</b>Prueba a escala real</h2>
-      <div class="proofwrap"><div class="proof" id="proof"><canvas id="cv"></canvas></div><div class="dims" id="dims"></div></div>
+      <div class="proofwrap" id="proofwrap"><div class="proof" id="proof"><canvas id="cv"></canvas></div><div class="dims" id="dims"></div><button class="x" id="btnReal" type="button" hidden>Ver a tamaño real</button></div>
       <div class="btnrow"><button class="btn primary" id="btnPDF" type="button">Descargar PDF</button><span class="note" id="pdfStatus">El PDF sale con la medida exacta del formato, listo para enviar al diario.</span></div>
     </section>
   </div>
@@ -248,7 +248,7 @@ const TIPOS={
  remate:{name:"Convocatoria de remate",desc:"Remate judicial: datos del martillero arriba, descripción del bien con viñetas, valores, día y hora, requisitos para postores y firma del especialista.",
    enc:{align:"left",bold:"first"},title:{align:"left",plus:0},fecha:{align:"left",bold:true},firma:{align:"left",boldFirst:false},border:false,logo:false},
  comunicado:{name:"Comunicado general",desc:"Comunicados al público con tabla de datos (predios, poseedores, padrones), logo opcional de la entidad y firma del área.",
-   enc:{align:"center",bold:"first"},title:{align:"center",plus:2},fecha:{align:"center",bold:false},firma:{align:"center",boldFirst:true},border:true,logo:true}
+   enc:{align:"center",bold:"first"},title:{align:"center",plus:2},fecha:{align:"center",bold:false},firma:{align:"center",boldFirst:true},border:true,logo:true,tarPref:"com"}
 };
 // Textos de ejemplo ficticios, con la misma estructura que los avisos reales.
 const SAMPLES={
@@ -256,7 +256,7 @@ const SAMPLES={
  petitorio:{enc:"GOBIERNO REGIONAL DE CAJAMARCA\nDIRECCIÓN REGIONAL DE ENERGÍA Y MINAS",t:"PETITORIO DE CONCESIÓN MINERA",b:"El artículo 6 del D.S. N° 001-2012-MC (Reglamento de la Ley N° 29785) establece que debe efectuarse la consulta previa antes de aprobar la medida administrativa que faculte el inicio de la actividad de exploración o explotación de los recursos naturales donde se ubican los pueblos indígenas que podrían ver afectados directamente sus derechos colectivos. El título de concesión minera es una medida administrativa que no faculta a iniciar dichas actividades.\n## DATOS Y UBICACIÓN DEL PETITORIO\nNombre: | LOS ANDES 2026\nCódigo: | 01-00123-26\nFecha y hora de presentación: | 12/10/2026, 10:15\nHectáreas: | 200\nTitular: | MINERA EJEMPLO S.A.C.\n\nDistrito(s): | LA ENCAÑADA\nProvincia(s): | CAJAMARCA\nDepartamento(s): | CAJAMARCA\nZona: | 17\n\n# COORDENADAS UTM WGS84 (expresado en miles)\n|| VÉRTICE | NORTE | ESTE\n1 | 9 214 | 790\n2 | 9 213 | 790\n3 | 9 213 | 788\n4 | 9 214 | 788",fecha:"Cajamarca, 20 de octubre de 2026",firmas:["GOBIERNO REGIONAL DE CAJAMARCA\nDIRECCIÓN REGIONAL DE ENERGÍA Y MINAS","ING. JORGE MEDINA CASTRO\nDIRECTOR REGIONAL"],lay:"stack"},
  junta:{enc:"",t:"CONVOCATORIA A JUNTA GENERAL DE ACCIONISTAS",b:"Se convoca a los señores accionistas de la empresa INVERSIONES EJEMPLO S.A.C. a la Junta General de Accionistas, que se celebrará el día 15 DE DICIEMBRE DEL 2026, a las 15:00 horas, en el domicilio de la empresa ubicado en Av. Los Álamos 450, distrito de Cayma, provincia y departamento de Arequipa.\nDe no haber quórum, la junta se celebrará en segunda convocatoria el día 22 de diciembre del 2026, a la misma hora y en el mismo lugar.\n**Orden del día:**\n1. Lectura del acta anterior.\n2. Aprobación de los estados financieros del ejercicio 2025.\n3. Elección del directorio.\n4. Asuntos varios.",fecha:"Arequipa, 20 de noviembre del 2026",firmas:["EL DIRECTORIO"]},
  remate:{enc:"CARLOS PÉREZ RAMOS\nABOGADO - MARTILLERO PÚBLICO - REG. N° 000\nCel. 900 000 000",t:"PRIMERA CONVOCATORIA DE REMATE JUDICIAL DE BIEN MUEBLE",b:"En los seguidos por BANCO EJEMPLO S.A. contra JUAN QUISPE MAMANI, sobre obligación de dar suma de dinero, expediente N° 00123-2026-0-2001-JP-CI-01, el Primer Juzgado de Paz Letrado de Piura, a cargo del Dr. Luis Torres Vega, especialista legal Dra. Ana Ruiz Campos, ha dispuesto sacar a remate en primera convocatoria el siguiente bien mueble:\n## DESCRIPCIÓN DEL BIEN MUEBLE MATERIA DE REMATE\n• **Placa:** ABC-123\n• **Marca:** TOYOTA\n• **Modelo:** HIACE\n• **Año de fabricación:** 2015\n• **Color:** Blanco\n• **Partida registral:** 50000000\n**Valor de tasación:** US$ 8,000.00 (Ocho mil con 00/100 dólares americanos).\n**Base del remate:** US$ 5,333.33, equivalente a las 2/3 partes del valor de tasación.\n**Gravámenes:** Ninguno conforme a SUNARP.\n**Día y hora del remate:** Lunes 14-12-2026 a las 11:00 a.m.\n**Lugar del remate:** Calle Lima N° 100, distrito, provincia y departamento de Piura.\n**Los postores deberán:**\n1. Oblar antes del remate el 10 % del valor de tasación, en efectivo o cheque de gerencia girado a su nombre.\n2. Presentar su documento de identidad o RUC y el arancel judicial respectivo.\n3. Si actúan por representante, acreditar los poderes con su vigencia.",fecha:"Viernes, 20 de noviembre del 2026.",firmas:["Ana Ruiz Campos\nEspecialista Legal\nPrimer Juzgado de Paz Letrado de Piura"]},
- comunicado:{enc:"",t:"COMUNICADO AL PÚBLICO EN GENERAL",b:"La Entidad Ejemplo, con domicilio en Av. Principal N° 100, distrito de Jesús María, Lima, en cumplimiento del numeral 7.1 del artículo 7 del Decreto Legislativo N° 1192, comunica que sobre las áreas afectadas por la ejecución del proyecto “Mejoramiento de la vía de acceso” se ha identificado a los siguientes poseedores:\n|| N° | NOMBRE DEL POSEEDOR | DISTRITO | ESTE (X) | NORTE (Y) | ÁREA M2\n1 | PÉREZ GÓMEZ, MARÍA | SULLANA | 536337,75 | 9460665,59 | 1,375.77\n2 | RAMOS DÍAZ, JORGE | BELLAVISTA | 536571,49 | 9460497,22 | 614.74\n3 | TORRES VERA, LUISA | SULLANA | 536709,99 | 9460111,08 | 126.41\nQuienes acrediten tener mejor derecho pueden presentar su oposición dentro del plazo de cinco (05) días hábiles contados a partir de la última publicación, en la mesa de partes de la entidad.",fecha:"Lima, noviembre de 2026",firmas:["DIRECCIÓN DE GESTIÓN PREDIAL"]}
+ comunicado:{enc:"",t:"COMUNICADO AL PÚBLICO EN GENERAL",b:"La Entidad Ejemplo (Sujeto Activo), con domicilio en Av. Principal N° 100, distrito de Jesús María, provincia y departamento de Lima, en cumplimiento de lo dispuesto en el numeral 7.1 del artículo 7 del Decreto Legislativo N° 1192 y sus modificatorias, comunica que sobre las áreas afectadas por la ejecución del proyecto “Mejoramiento de la vía de acceso y drenaje pluvial” se ha identificado a los poseedores que cumplen los requisitos del numeral 7.2 de la norma acotada, que a continuación se detallan:\n# UBICACIÓN EXACTA DEL PREDIO · PROVINCIA DE SULLANA, DEPARTAMENTO DE PIURA\n|| N° | CÓDIGO | NOMBRE DEL SUJETO PASIVO | DNI/RUC | SECTOR | DISTRITO | DENOMINACIÓN / REFERENCIA DE LA UBICACIÓN | ESTE (X)<br>WGS 84 - ZONA 17S | NORTE (Y)<br>WGS 84 - ZONA 17S | ÁREA M2\n1 | 0000000-EJ-01A | PÉREZ GARCÍA, MARÍA | 53464097 | EL CUCHO | BELLAVISTA | ACCESO POR RED VIAL VECINAL, VÍA A LA TINA | 536300,3471 | 9460600,7468 | 5,352.16\n2 | 0000000-EJ-02A | RAMOS FLORES, JORGE | 19722233 | SIN NOMBRE | SULLANA | ACCESO POR RED VIAL VECINAL, TROCHA CARROZABLE | 536341,9779 | 9460480,2542 | 3,015.84\n3 | 0000000-EJ-03A | TORRES CASTILLO, LUISA<br>GARCÍA CHÁVEZ, ROSA | 17784483<br>78106871 | CHIRA | SULLANA | ACCESO POR TROCHA CARROZABLE, VÍA PARALELA AL DREN EXISTENTE | 536382,4517 | 9460360,1614 | 724.65\n4 | 0000000-EJ-04A | QUISPE VARGAS, CARLOS | 66126116 | SIN NOMBRE | BELLAVISTA | SE UBICA EN ZONA CONTIGUA AL DREN EXISTENTE | 536423,2144 | 9460240,4943 | 763.80\n5 | 0000000-EJ-05A | MENDOZA ROJAS, ANA | 66978001 | CIENEGUILLO | SULLANA | ACCESO POR RED VIAL VECINAL, VÍA A LA TINA | 536464,1968 | 9460120,3028 | 1,848.90\n6 | 0000000-EJ-06A | GARCÍA SALAZAR, PEDRO | 18302983 | SIN NOMBRE | SULLANA | ACCESO POR RED VIAL VECINAL, TROCHA CARROZABLE | 536505,7499 | 9460000,1812 | 1,831.15\n7 | 0000000-EJ-07A | FLORES CHÁVEZ, ROSA<br>ROJAS VEGA, CARMEN | 27874421<br>48870700 | EL CUCHO | BELLAVISTA | ACCESO POR TROCHA CARROZABLE, VÍA PARALELA AL DREN EXISTENTE | 536546,7867 | 9459880,3363 | 4,449.25\n8 | 0000000-EJ-08A | CASTILLO HUAMÁN, JUAN | 51403729 | SIN NOMBRE | SULLANA | SE UBICA EN ZONA CONTIGUA AL DREN EXISTENTE | 536587,3961 | 9459760,2688 | 4,784.83\n9 | 0000000-EJ-09A | VARGAS CRUZ, ELENA | 35215622 | CHIRA | SULLANA | ACCESO POR RED VIAL VECINAL, VÍA A LA TINA | 536628,7101 | 9459640,2596 | 4,507.18\n10 | 0000000-EJ-10A | ROJAS DÍAZ, MIGUEL | 17999533 | SIN NOMBRE | BELLAVISTA | ACCESO POR RED VIAL VECINAL, TROCHA CARROZABLE | 536669,4374 | 9459520,9133 | 5,593.78\n11 | 0000000-EJ-11A | SALAZAR VEGA, CARMEN | 67390467 | CIENEGUILLO | SULLANA | ACCESO POR TROCHA CARROZABLE, VÍA PARALELA AL DREN EXISTENTE | 536710,6146 | 9459400,8628 | 4,816.68\n12 | 0000000-EJ-12A | CHÁVEZ PÉREZ, LUIS | 58530762 | SIN NOMBRE | SULLANA | SE UBICA EN ZONA CONTIGUA AL DREN EXISTENTE | 536751,5911 | 9459280,5070 | 6,527.33\n13 | 0000000-EJ-13A | HUAMÁN RAMOS, TERESA | 42762079 | EL CUCHO | BELLAVISTA | ACCESO POR RED VIAL VECINAL, VÍA A LA TINA | 536792,2341 | 9459160,5919 | 4,322.73\n14 | 0000000-EJ-14A | CRUZ TORRES, JOSÉ | 56100526 | SIN NOMBRE | SULLANA | ACCESO POR RED VIAL VECINAL, TROCHA CARROZABLE | 536833,8353 | 9459040,5717 | 5,008.19\n15 | 0000000-EJ-15A | DÍAZ QUISPE, SOFÍA | 25846520 | CHIRA | SULLANA | ACCESO POR TROCHA CARROZABLE, VÍA PARALELA AL DREN EXISTENTE | 536874,9387 | 9458920,7850 | 1,371.53\n16 | 0000000-EJ-16A | VEGA MENDOZA, RAÚL | 30399018 | SIN NOMBRE | BELLAVISTA | SE UBICA EN ZONA CONTIGUA AL DREN EXISTENTE | 536915,9011 | 9458800,7909 | 341.95\nAsimismo, se comunica que quienes acrediten tener mejor derecho mediante documento de fecha cierta, o por prescripción declarada notarial o judicialmente, pueden presentar su escrito de oposición dentro del plazo de cinco (05) días hábiles contados a partir de la última publicación, en la mesa de partes de la entidad.",fecha:"Lima, noviembre de 2026",firmas:["DIRECCIÓN DE GESTIÓN PREDIAL"]}
 };
 
 const $=id=>document.getElementById(id);
@@ -421,7 +421,7 @@ function syncSelectors(){
   fillSelect($("tipo"),Object.entries(TIPOS).map(([k,t])=>[k,t.name]),st.tipo);
   $("tipoDesc").textContent=TP().desc;
   fillSelect($("dia"),Object.entries(DIARIOS).map(([k,d])=>[k,d.name]),st.dia);
-  const excl=TARS().find(t=>t.solo);
+  const excl=TARS().find(t=>t.solo)||TARS().find(t=>t.id===TP().tarPref);
   if(st.autoTar&&excl)st.tar=excl.id;st.autoTar=false;
   if(!TARS().find(t=>t.id===st.tar))st.tar=TARS()[0].id;
   fillSelect($("tar"),TARS().map(t=>[t.id,t.name]),st.tar);
@@ -504,14 +504,16 @@ function renderProof(){
   if(!r){cv.width=10;cv.height=10;cv.style.width="0";cv.style.height="0";$("dims").textContent=D().mods?"":"Sin medidas: no hay vista previa.";$("btnPDF").disabled=true;return;}
   $("btnPDF").disabled=false;
   const pxmm=96/25.4,wpx=r.w*10*pxmm,hpx=r.h*10*pxmm,dpr=Math.max(2,window.devicePixelRatio||1);
-  cv.width=Math.round(wpx*dpr);cv.height=Math.round(hpx*dpr);cv.style.width=wpx+"px";cv.style.height=hpx+"px";
+  const avail=Math.max(200,$("proofwrap").clientWidth-24),k=st.real?1:Math.min(1,avail/wpx);
+  cv.width=Math.round(wpx*dpr);cv.height=Math.round(hpx*dpr);cv.style.width=(wpx*k)+"px";cv.style.height=(hpx*k)+"px";
   ctx.setTransform(dpr*pxmm,0,0,dpr*pxmm,0,0);ctx.fillStyle="#fff";ctx.fillRect(0,0,r.w*10,r.h*10);
   ctx.strokeStyle="#111";ctx.lineWidth=0.3;ctx.strokeRect(0.15,0.15,r.w*10-0.3,r.h*10-0.3);ctx.fillStyle="#111";ctx.textAlign="left";
   opsFor(r).forEach(o=>{
     if(o.ln){ctx.lineWidth=0.18;ctx.beginPath();ctx.moveTo(o.ln[0],o.ln[1]);ctx.lineTo(o.ln[2],o.ln[3]);ctx.stroke();return;}
     if(o.img){if(st.logo)ctx.drawImage(st.logo.img,o.x,o.y,o.w,o.h);return;}
     ctx.font=`${o.b?"700":"400"} ${o.fs*PT}px Helvetica, Arial, sans-serif`;ctx.fillText(o.s,o.x,o.y);});
-  $("dims").textContent=`${TP().name} · ${D().name} · ${r.k} · ${dec(r.h)} × ${dec(r.w)} cm · letra ${fmtPt(r.mf)} · tamaño real en pantalla aproximado`;
+  $("dims").textContent=`${TP().name} · ${D().name} · ${r.k} · ${dec(r.h)} × ${dec(r.w)} cm · letra ${fmtPt(r.mf)} · ${k<1?"vista al "+Math.round(k*100)+" %":"tamaño real aproximado"}`;
+  $("btnReal").hidden=!(k<1||st.real);$("btnReal").textContent=st.real?"Ajustar al panel":"Ver a tamaño real";
 }
 function buildDoc(r){
   const W=r.w*10,H=r.h*10,doc=new jsPDF({unit:"mm",format:[W,H],orientation:W>H?"landscape":"portrait"});
@@ -570,19 +572,45 @@ async function docxText(f){
   });
   return out.join("\n").replace(/\n{3,}/g,"\n\n").trim();
 }
+// Excel → tabla del cuerpo. Fila 1 = encabezados; si la primera fila es un título agrupado (pocas celdas), va como subtítulo.
+async function excelTable(f){
+  if(!window.XLSX)await loadScript("https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js");
+  const wb=XLSX.read(await f.arrayBuffer(),{type:"array"}),ws=wb.Sheets[wb.SheetNames[0]];
+  let rows=XLSX.utils.sheet_to_json(ws,{header:1,raw:false,defval:""}).map(r=>r.map(c=>String(c).trim().replace(/\|/g,"/").replace(/\r?\n/g,"<br>")));
+  rows=rows.filter(r=>r.some(c=>c));
+  if(!rows.length)throw new Error("la primera hoja está vacía");
+  const n=Math.max(...rows.map(r=>r.length)),keep=[...Array(n).keys()].filter(c=>rows.some(r=>r[c]));
+  rows=rows.map(r=>keep.map(c=>r[c]||""));
+  const lines=[];
+  while(rows.length>2&&rows[0].filter(Boolean).length<=Math.max(1,Math.floor(keep.length/3))){lines.push("# "+rows[0].filter(Boolean).join(" · "));rows.shift();}
+  lines.push("|| "+rows[0].join(" | "));rows.slice(1).forEach(r=>lines.push(r.map(c=>c||" ").join(" | ")));
+  return {lines,rows:rows.length-1,cols:keep.length};
+}
+// Reemplaza la tabla que ya haya en el cuerpo (con su subtítulo #) o la agrega al final
+function putTable(lines){
+  const L=$("b").value.replace(/\r/g,"").split("\n"),isT=l=>/\|/.test(l)&&!/^\s*#/.test(l);
+  let a=L.findIndex(isT);
+  if(a<0){while(L.length&&!L[L.length-1].trim())L.pop();L.push(...lines);}
+  else{let b=a;while(b<L.length&&(isT(L[b])||(!L[b].trim()&&b+1<L.length&&isT(L[b+1]))))b++;if(a>0&&/^\s*#\s/.test(L[a-1])&&lines[0].startsWith("# "))a--;L.splice(a,b-a,...lines);}
+  $("b").value=L.join("\n");st.sel=null;compute();
+}
 function showFiles(list,extra){
   $("files").innerHTML=list.map(f=>`<div><span>${esc(f.name)}</span><span class="note" style="flex:none">${f.size>1048576?dec((f.size/1048576).toFixed(1))+" MB":Math.max(1,Math.round(f.size/1024))+" KB"}</span></div>`).join("")+(extra?`<div class="note" style="border:0;background:none;padding:0">${extra}</div>`:"");
 }
 async function onFiles(fl){
   const list=[...fl];st.files=[];st.docText="";$("aiStatus").textContent="";
   if(!list.length){showFiles([]);return;}
+  const xls=list.find(f=>/\.(xlsx|xls|csv|ods)$/i.test(f.name));
+  if(xls){try{$("aiStatus").textContent="Leyendo el Excel…";const t=await excelTable(xls);putTable(t.lines);showFiles([xls],`Tabla de Excel insertada en el cuerpo: ${t.rows} filas × ${t.cols} columnas. No pasa por la IA, así no se pierde ningún dato.`);$("aiStatus").textContent="";}
+    catch(e){showFiles([xls],"No se pudo leer el Excel: "+(e.message||"formato no reconocido")+".");$("aiStatus").textContent="";}
+    $("file").value="";return;}
   const docx=list.find(f=>/\.docx$/i.test(f.name));
   if(!docx&&list.some(f=>/\.doc$/i.test(f.name))){showFiles(list,"Los Word viejos (.doc) no se pueden leer: guardalo como .docx o PDF.");return;}
   try{
     if(docx){$("aiStatus").textContent="Leyendo el Word…";st.docText=await docxText(docx);showFiles([docx],`Word leído: ${st.docText.split(/\s+/).filter(Boolean).length} palabras.`);$("aiStatus").textContent="";return;}
     const pdfs=list.filter(f=>/pdf$/i.test(f.type)||/\.pdf$/i.test(f.name)),imgs=list.filter(f=>/^image\//.test(f.type));
     const pick=pdfs.length?[pdfs[0]]:imgs.slice(0,3);
-    if(!pick.length){showFiles(list,"Ese tipo de archivo no se puede leer. Usá PDF, Word (.docx) o fotos JPG/PNG.");return;}
+    if(!pick.length){showFiles(list,"Ese tipo de archivo no se puede leer. Usá PDF, Word (.docx), Excel o fotos JPG/PNG.");return;}
     $("aiStatus").textContent="Preparando el archivo…";
     for(const f of pick){
       if(pdfs.length){if(f.size>4*1048576){showFiles([f],"El PDF pesa más de 4 MB. Probá con fotos de las páginas o pegá el texto.");$("aiStatus").textContent="";return;}
@@ -616,6 +644,8 @@ $("var").addEventListener("change",e=>{st.vr=e.target.value;st.sel=null;compute(
 loadSample(st.tipo);syncSelectors();compute();
 
 // ===== PDF e IA =====
+$("btnReal").onclick=()=>{st.real=!st.real;renderProof();};
+addEventListener("resize",()=>{clearTimeout(window._rz);window._rz=setTimeout(renderProof,150);});
 $("btnPDF").onclick=()=>{const r=selected();if(!r)return;buildDoc(r).save(pdfName(r));$("pdfStatus").textContent="PDF descargado.";};
 $("btnAI").onclick=async()=>{
   const payload={tipo:st.tipo,diario:D().name,texto:"",archivos:[]};
