@@ -201,10 +201,10 @@ const DIARIOS={
     {id:"legal",name:"Legal (edictos) · B/N",iva:"Precios con IGV",
      variants:[["nr","Nacional · regular"],["na","Nacional · agencia"],["lr","Lima · regular"],["la","Lima · agencia"]],
      formats:[["3x1",{nr:126.26,na:107.32,lr:115.64,la:98.29}],["3x2",{nr:246.62,na:209.63,lr:225.38,la:191.57}],["4x2",{nr:366.98,na:311.93,lr:332.76,la:282.85}],["4x3",{nr:548.70,na:466.40,lr:499.14,la:424.27}],["5x3",{nr:653.72,na:555.66,lr:595.90,la:506.52}],["6x3",{nr:784.70,na:667.00,lr:715.08,la:607.82}],["7x3",{nr:915.68,na:778.33,lr:834.26,la:709.12}],["9x3",{nr:null,na:1025.07,lr:null,la:932.79},"Precio regular a revisar: el tarifario dice S/ 365,33"]]},
-    {id:"region",name:"Por regiones",iva:"Precios con IGV",
+    {id:"region",name:"Petitorios (coordenadas)",iva:"Precios con IGV",solo:["petitorio"],
      variants:[["nac","Nacional"],["lima","Lima"],["norte","Norte"],["sur","Sur"]],
      formats:[["3x2",[857,429]],["4x2",[1143,571]],["7x2",[2000,1000]],["5x3",[2143,1069]],["7x3",[3000,1496]],["9x3",[3857,1924]],["11x3",[4331,2351]],["13x3",[4914,2668]],["11x4",[5544,2746]],["17x3",[6426,3182]],["13x4",[6552,3245]],["9x6",[6804,3370]],["11x6",[8316,3960]],["13x6",[8892,4680]],["18x6",[9912,5400]]].map(([k,[n,l]])=>[k,{nac:n,lima:l,norte:l,sur:l}]),
-     note:"Cuadro por regiones: confirmar con el diario a qué tipo de aviso corresponde."},
+     note:"Tarifa exclusiva para petitorios mineros con coordenadas, por región."},
     {id:"com",name:"Comercial Lima",iva:"Precios del tarifario Lima",
      variants:[["lima","Lima"]],
      formats:[["3x6",3682],["4x6",5447],["5x6",6808],["7x2",2864],["7x3",4607],["7x6",9214],["9x2",3682],["9x3",6498],["9x4",7716],["9x6",12541],["11x3",7073],["11x4",10667],["11x6",14979],["13x4",11408],["13x5",14820],["13x6",16719],["17x2",7288],["17x3",11189],["18x6",22800]].map(([k,v])=>[k,{lima:v}])}
@@ -265,7 +265,10 @@ const {jsPDF}=window.jspdf;
 const PT=0.352778, PAD=1.8, LH=1.16;
 const dec=v=>String(v).replace(".",",");
 const money=v=>v==null?"—":"S/ "+v.toLocaleString("es-PE",{minimumFractionDigits:2,maximumFractionDigits:2});
-const D=()=>DIARIOS[st.dia], T=()=>D().tarifas.find(t=>t.id===st.tar), TP=()=>TIPOS[st.tipo];
+const D=()=>DIARIOS[st.dia], TP=()=>TIPOS[st.tipo];
+// Tarifas que valen para el tipo elegido (algunas son exclusivas, p. ej. petitorios)
+const TARS=()=>D().tarifas.filter(t=>!t.solo||t.solo.includes(st.tipo));
+const T=()=>TARS().find(t=>t.id===st.tar)||TARS()[0];
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
 // ===== Medición de texto: anchos de Helvetica tomados de jsPDF (a 1 pt) y guardados =====
@@ -418,8 +421,10 @@ function syncSelectors(){
   fillSelect($("tipo"),Object.entries(TIPOS).map(([k,t])=>[k,t.name]),st.tipo);
   $("tipoDesc").textContent=TP().desc;
   fillSelect($("dia"),Object.entries(DIARIOS).map(([k,d])=>[k,d.name]),st.dia);
-  if(!D().tarifas.find(t=>t.id===st.tar))st.tar=D().tarifas[0].id;
-  fillSelect($("tar"),D().tarifas.map(t=>[t.id,t.name]),st.tar);
+  const excl=TARS().find(t=>t.solo);
+  if(st.autoTar&&excl)st.tar=excl.id;st.autoTar=false;
+  if(!TARS().find(t=>t.id===st.tar))st.tar=TARS()[0].id;
+  fillSelect($("tar"),TARS().map(t=>[t.id,t.name]),st.tar);
   if(!T().variants.find(v=>v[0]===st.vr))st.vr=T().variants[0][0];
   fillSelect($("var"),T().variants,st.vr);
   $("hDiario").textContent=D().name;$("hNote").textContent=TP().name+" · "+T().name;
@@ -472,7 +477,7 @@ function compute(){
 }
 // Si no entra en la tarifa elegida, busca otra tarifa del mismo diario con formatos más grandes (avisos extensos, comunicados con tablas)
 function otraTarifa(M,min){const d=D();if(!d.mods)return null;
-  for(const t of d.tarifas){if(t.id===st.tar)continue;
+  for(const t of TARS()){if(t.id===st.tar)continue;
     const fit=t.formats.map(([k,p])=>{const [m,c]=k.split("x").map(Number);if(!d.mods[m-1]||!d.cols[c-1])return null;
       const r=layout(M,d.cols[c-1]*10,min),vals=Object.values(p).filter(v=>v!=null);
       return (!r.bad&&r.h<=d.mods[m-1]*10&&vals.length)?{k,pr:Math.min(...vals)}:null;}).filter(Boolean).sort((a,b)=>a.pr-b.pr);
@@ -525,7 +530,7 @@ function fieldsSnapshot(){return JSON.stringify([$("enc").value,$("t").value,$("
 function sampleSnapshot(k){const s=SAMPLES[k];return JSON.stringify([s.enc,s.t,s.b,s.fecha,s.firmas]);}
 function loadSample(k){const s=SAMPLES[k];$("enc").value=s.enc;$("t").value=s.t;$("b").value=s.b;$("fecha").value=s.fecha;st.firmas=[...s.firmas];st.lay=s.lay||"side";$("faltan").textContent="";renderFirmas();}
 const isPristine=()=>{const cur=fieldsSnapshot();return cur===sampleSnapshot(st.tipo)||!JSON.parse(cur).flat().join("").trim();};
-$("tipo").addEventListener("change",e=>{const keep=!isPristine();st.tipo=e.target.value;st.sel=null;if(!keep)loadSample(st.tipo);syncSelectors();compute();});
+$("tipo").addEventListener("change",e=>{const keep=!isPristine();st.tipo=e.target.value;st.sel=null;st.autoTar=true;if(!keep)loadSample(st.tipo);syncSelectors();compute();});
 
 // ===== Barra de formato del cuerpo =====
 const INS={sec:["## ","SUBTÍTULO"],neg:["**","texto","**"],vin:["• ","texto"],num:["1. ","texto"],dat:["","Etiqueta: | valor"],tab:["","|| COLUMNA 1 | COLUMNA 2 | COLUMNA 3\ndato | dato | dato"]};
