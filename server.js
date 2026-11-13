@@ -8,7 +8,7 @@ import path from "node:path";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = process.env.PORT || 3000;
-const MODELS = (process.env.GEMINI_MODELS || "gemini-flash-latest,gemini-flash-lite-latest,gemini-2.5-flash")
+const MODELS = (process.env.GEMINI_MODELS || "gemini-flash-latest,gemini-3.6-flash,gemini-3.8-flash,gemini-3.5-flash-lite,gemini-flash-lite-latest")
   .split(",").map((m) => m.trim()).filter(Boolean);
 const MAX_BODY = 9 * 1024 * 1024;
 const MIMES = ["application/pdf", "image/jpeg", "image/png", "image/webp", "image/heic", "image/heif"];
