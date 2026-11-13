@@ -1,10 +1,10 @@
 <!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Diseñador de avisos Perú</title>
-<meta name="claude:viewport-fit-sides" content="cover">
+<title>Diseño de avisos · Perú</title>
+<script>(function(){try{var t=localStorage.getItem("cotizador_theme");if(t==="dark"||(!t&&matchMedia("(prefers-color-scheme: dark)").matches))document.documentElement.classList.add("dark");}catch(e){}})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: módulo del cotizador — barra de marca con el degradé del menú, tarjetas blancas como "Generar nueva cotización", dos columnas que se apilan en el celular */
+/* Layout: módulo del cotizador — barra de marca con el degradé del menú, tarjetas blancas, dos columnas que se apilan en el celular */
 :root{
   --bg:#F3F4F6; --card:#FFFFFF; --ink:#111827; --ink2:#374151; --ink3:#6B7280; --line:#E5E7EB; --field:#CCCCCC;
   --navy:#0A4A75; --blue:#0D5F96; --sea:#17A591; --bluesoft:#E6F1F8; --seasoft:#E3F5F1;
@@ -12,10 +12,10 @@
   --paper:#FFFFFF; --paperInk:#111111;
   --f-body:"Roboto", system-ui, sans-serif; --f-mono:"Roboto Mono", ui-monospace, monospace;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0F172A;--card:#162033;--ink:#F1F5F9;--ink2:#CBD5E1;--ink3:#94A3B8;--line:#26334A;--field:#334155;--bluesoft:#12304A;--seasoft:#0F3A35;--redsoft:#3B1C1F;--sunsoft:#3A2F17;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#0F172A;--card:#162033;--ink:#F1F5F9;--ink2:#CBD5E1;--ink3:#94A3B8;--line:#26334A;--field:#334155;--bluesoft:#12304A;--seasoft:#0F3A35;--redsoft:#3B1C1F;--sunsoft:#3A2F17;color-scheme:dark}
+html.dark{--bg:#0F172A;--card:#162033;--ink:#F1F5F9;--ink2:#CBD5E1;--ink3:#94A3B8;--line:#26334A;--field:#334155;--bluesoft:#12304A;--seasoft:#0F3A35;--redsoft:#3B1C1F;--sunsoft:#3A2F17;color-scheme:dark}
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.45;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px 40px}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.45;margin:0;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px 32px}
 .wrap{max-width:1200px;margin:0 auto;display:grid;gap:16px}
 header{background:linear-gradient(100deg,var(--navy),var(--blue) 55%,var(--sea));color:#E8F7FB;border-radius:14px;padding:16px 20px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,.08)}
 .brand{display:flex;align-items:center;gap:14px}
@@ -28,24 +28,50 @@ h1{font-weight:700;font-size:22px;margin:0;letter-spacing:-.005em;color:#fff;tex
 @media (max-width:880px){.grid{grid-template-columns:1fr}}
 .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;display:grid;gap:12px;min-width:0;box-shadow:0 1px 2px rgba(0,0,0,.04)}
 .card h2{font-size:18px;font-weight:600;margin:0;color:var(--ink)}
+.card h2:not(:first-child){margin-top:10px;padding-top:16px;border-top:1px solid var(--line)}
 .card h2 b{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--bluesoft);color:var(--blue);font-size:13px;margin-right:8px;vertical-align:2px}
-label{font-size:15px;font-weight:500;color:var(--ink);display:grid;gap:6px}
+label,.lab{font-size:15px;font-weight:500;color:var(--ink);display:grid;gap:6px}
+label .note,.lab .note{font-weight:400}
 textarea,input,select{font:inherit;font-size:15px;color:var(--ink);background:var(--card);border:1px solid var(--field);border-radius:4px;padding:8px 10px;width:100%}
 textarea{resize:vertical;line-height:1.4}
+#b{font-size:14px}
 textarea:focus,input:focus,select:focus,button:focus-visible{outline:2px solid var(--blue);outline-offset:1px}
-.row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
-@media (max-width:480px){.row{grid-template-columns:1fr 1fr}}
+.row2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media (max-width:420px){.row2{grid-template-columns:1fr}}
 .seg{display:flex;border:1px solid var(--field);border-radius:6px;overflow:hidden;background:var(--card)}
-.seg button{flex:1;border:0;background:transparent;color:var(--ink2);font:inherit;font-size:14px;padding:8px 4px;cursor:pointer}
+.seg button{flex:1;border:0;background:transparent;color:var(--ink2);font:inherit;font-size:14px;padding:8px 6px;cursor:pointer}
+.seg button+button{border-left:1px solid var(--field)}
 .seg button[aria-pressed="true"]{background:var(--blue);color:#fff;font-weight:500}
 .btn{font:inherit;font-size:15px;font-weight:500;border-radius:8px;padding:9px 16px;border:1px solid var(--field);background:var(--card);color:var(--ink);cursor:pointer}
 .btn.primary{background:var(--green);border-color:var(--green);color:#fff;font-weight:600;box-shadow:0 2px 6px rgba(22,163,74,.25)}
 .btn.ia{background:var(--blue);border-color:var(--blue);color:#fff}
+.btn.small{font-size:14px;padding:6px 12px}
 .btn:disabled{opacity:.5;cursor:default}
 .btnrow{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
 .note{font-size:13px;color:var(--ink3)}
-.ai{background:var(--seasoft);border:1px solid color-mix(in srgb,var(--sea) 35%,transparent);border-radius:10px;padding:12px;display:grid;gap:8px}
+.tipo-desc{font-size:13px;color:var(--ink2);background:var(--bluesoft);border-radius:8px;padding:8px 10px;margin:0}
+.ai{background:var(--seasoft);border:1px solid color-mix(in srgb,var(--sea) 35%,transparent);border-radius:10px;padding:12px;display:grid;gap:10px}
 .ai p{margin:0;font-size:14px;color:var(--ink2)}
+.drop{border:1.5px dashed var(--field);border-radius:10px;padding:16px 12px;text-align:center;display:grid;gap:4px;cursor:pointer;background:var(--card);font-weight:400}
+.drop b{color:var(--blue);font-weight:500}
+.drop.over{border-color:var(--blue);background:var(--bluesoft)}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.files{display:grid;gap:4px;font-size:13px;color:var(--ink2)}
+.files:empty{display:none}
+.files div{display:flex;gap:8px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:6px 8px}
+.files span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;min-width:0}
+.tool{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:inherit;font-size:13px;border:1px solid var(--field);background:var(--card);color:var(--ink2);border-radius:999px;padding:3px 10px;cursor:pointer}
+.chip:hover{border-color:var(--blue);color:var(--blue)}
+details.help summary{cursor:pointer;font-size:13px;color:var(--blue);font-weight:400}
+details.help ul{margin:6px 0 0;padding-left:18px;font-size:13px;color:var(--ink2);font-weight:400;display:grid;gap:2px}
+code{font-family:var(--f-mono);font-size:12px;background:var(--bg);border:1px solid var(--line);padding:0 4px;border-radius:4px}
+.sub{font-size:15px;font-weight:500;color:var(--ink)}
+.firmas{display:grid;gap:8px}
+.firma{display:grid;gap:6px;border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--bg)}
+.firma .fh{display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:500;color:var(--ink2)}
+.x{border:0;background:transparent;color:var(--ink3);font:inherit;font-size:13px;cursor:pointer;text-decoration:underline;padding:2px 4px}
+.x:hover{color:var(--red)}
 .warn{background:var(--sunsoft);color:var(--ink);border-radius:8px;padding:8px 10px;font-size:14px}
 .warn:empty{display:none}
 .opts{display:grid;gap:6px}
@@ -54,8 +80,7 @@ textarea:focus,input:focus,select:focus,button:focus-visible{outline:2px solid v
 .opt[aria-pressed="true"]{border-color:var(--blue);box-shadow:0 0 0 1px var(--blue) inset;background:var(--bluesoft)}
 .opt.no{opacity:.45;cursor:default}
 .mc{font-size:22px;font-weight:700;line-height:1;color:var(--navy)}
-:root[data-theme="dark"] .mc{color:#7CC4F0}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .mc{color:#7CC4F0}}
+html.dark .mc{color:#7CC4F0}
 .mc small{display:block;font-family:var(--f-mono);font-size:10px;color:var(--ink3);font-weight:400;margin-top:4px}
 .bar{height:6px;border-radius:4px;background:var(--line);overflow:hidden;margin-top:6px}
 .bar i{display:block;height:100%;background:var(--sea)}
@@ -65,50 +90,91 @@ textarea:focus,input:focus,select:focus,button:focus-visible{outline:2px solid v
 .price small{display:block;font-weight:400;font-size:12px;color:var(--ink3)}
 .pill{display:inline-block;font-size:11px;font-weight:500;padding:2px 8px;border-radius:20px;margin-left:6px;vertical-align:1px}
 .pill.rec{background:var(--green);color:#fff}
-.pill.chk{background:var(--sunsoft);color:var(--sun)}
+.pill.chk{background:var(--sunsoft);color:var(--sun);white-space:normal}
 .proofwrap{display:grid;gap:8px;justify-items:center;background:var(--bg);border:1px dashed var(--field);border-radius:10px;padding:18px 10px;overflow-x:auto}
 .proof{background:var(--paper);color:var(--paperInk);box-shadow:0 6px 18px rgba(10,74,117,.15)}
 .proof canvas{display:block}
-.dims{font-family:var(--f-mono);font-size:11.5px;color:var(--ink3)}
+.dims{font-family:var(--f-mono);font-size:11.5px;color:var(--ink3);text-align:center}
 .why{font-size:15px;color:var(--ink2);margin:0;background:var(--bluesoft);border-radius:8px;padding:10px 12px}
 .why b{color:var(--ink)}
 footer{font-size:13px;color:var(--ink3);padding-top:4px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
-.row2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-@media (max-width:420px){.row2{grid-template-columns:1fr}}
-.pill.chk{white-space:normal}
 </style>
-
 </head><body>
 <div class="wrap">
   <header>
-    <div class="brand"><div class="logo" aria-hidden="true"><span></span></div><div><div class="kicker">Cotizador · Perú</div><h1>Diseñador de avisos · <span id="hDiario">La República</span></h1></div></div>
+    <div class="brand"><div class="logo" aria-hidden="true"><span></span></div><div><div class="kicker">Cotizador · Perú · Edictos varios</div><h1>Diseño de avisos · <span id="hDiario">La República</span></h1></div></div>
     <div class="hnote" id="hNote">Tarifas 2026</div>
   </header>
 
   <div class="grid">
-    <section class="card" aria-labelledby="h-txt">
-      <h2 id="h-txt"><b>1</b>Texto del aviso</h2>
-      <div class="ai" id="aibox">
-        <p><b>Pegá el texto como llegó</b> y la IA lo separa en título, cuerpo y firma, sin cambiar el contenido legal. También avisa si falta un dato habitual.</p>
-        <textarea id="raw" rows="4" placeholder="Pegá acá el texto completo del cliente…"></textarea>
-        <div class="btnrow"><button class="btn ia" id="btnAI" type="button">Ordenar con IA</button><span class="note" id="aiStatus"></span></div>
-      </div>
-      <label for="t">Título<input id="t" type="text"></label>
-      <label for="b">Cuerpo<textarea id="b" rows="9"></textarea></label>
-      <label for="f">Firma<textarea id="f" rows="2"></textarea></label>
-      <div class="warn" id="faltan"></div>
-
-      <h2><b>2</b>Publicación</h2>
+    <section class="card" aria-labelledby="h-pub">
+      <h2 id="h-pub"><b>1</b>Publicación</h2>
+      <label for="tipo">Tipo de aviso<select id="tipo"></select></label>
+      <p class="tipo-desc" id="tipoDesc"></p>
       <div class="row2">
         <label for="dia">Diario<select id="dia"></select></label>
         <label for="tar">Tarifa<select id="tar"></select></label>
       </div>
       <div class="row2">
         <label for="var">Precio<select id="var"></select></label>
-        <label for="fs">Letra mínima<select id="fs"><option value="6.5">6,5 pt</option><option value="7" selected>7 pt</option><option value="7.5">7,5 pt</option><option value="8">8 pt</option></select></label>
+        <label for="fs">Letra mínima<select id="fs"><option value="5.5">5,5 pt</option><option value="6">6 pt</option><option value="6.5">6,5 pt</option><option value="7" selected>7 pt</option><option value="7.5">7,5 pt</option><option value="8">8 pt</option></select></label>
       </div>
       <div class="note" id="medNote"></div>
+
+      <h2 id="h-txt"><b>2</b>Texto del aviso</h2>
+      <div class="ai" id="aibox">
+        <div class="seg" role="group" aria-label="Cómo cargar el texto">
+          <button type="button" id="mPaste" aria-pressed="true">Pegar texto</button>
+          <button type="button" id="mFile" aria-pressed="false">Subir PDF, Word o foto</button>
+        </div>
+        <div id="paneP"><textarea id="raw" rows="4" aria-label="Texto completo del cliente" placeholder="Pegá acá el texto completo del cliente…"></textarea></div>
+        <div id="paneF" hidden>
+          <label class="drop" id="drop" for="file"><b>Elegí o arrastrá el archivo</b><span class="note">PDF, Word (.docx) o fotos JPG/PNG · hasta 3 fotos si el edicto tiene varias páginas</span><input class="vh" id="file" type="file" accept=".pdf,.docx,.doc,image/jpeg,image/png,image/webp" multiple></label>
+          <div class="files" id="files"></div>
+        </div>
+        <p id="aiHelp">La IA separa el texto en encabezado, título, cuerpo, fecha y firmas según el tipo de aviso, sin cambiar el contenido legal.</p>
+        <div class="btnrow"><button class="btn ia" id="btnAI" type="button">Ordenar con IA</button><span class="note" id="aiStatus" role="status"></span></div>
+      </div>
+      <label for="enc">Encabezado <span class="note">opcional: entidad, membrete o datos del martillero</span><textarea id="enc" rows="2"></textarea></label>
+      <div id="logoRow" class="lab" hidden>
+        <span>Logo de la entidad <span class="note">opcional, va arriba a la derecha</span></span>
+        <div class="btnrow"><label class="btn small" for="logo" style="display:inline-block">Elegir imagen<input class="vh" id="logo" type="file" accept="image/png,image/jpeg,image/webp"></label><span class="note" id="logoName">Sin logo</span><button class="x" id="logoX" type="button" hidden>Quitar</button></div>
+      </div>
+      <label for="t">Título<input id="t" type="text"></label>
+      <div class="lab">
+        <label for="b">Cuerpo</label>
+        <div class="tool" role="toolbar" aria-label="Formato del cuerpo">
+          <button class="chip" type="button" data-ins="sec">Subtítulo</button>
+          <button class="chip" type="button" data-ins="neg">Negrita</button>
+          <button class="chip" type="button" data-ins="vin">Viñeta</button>
+          <button class="chip" type="button" data-ins="num">Numerado</button>
+          <button class="chip" type="button" data-ins="dat">Dato en columnas</button>
+          <button class="chip" type="button" data-ins="tab">Tabla</button>
+        </div>
+        <textarea id="b" rows="11"></textarea>
+        <details class="help"><summary>Cómo dar formato al cuerpo</summary><ul>
+          <li>Cada renglón es un párrafo. Un renglón vacío deja un espacio.</li>
+          <li><code>## TEXTO</code> subtítulo a la izquierda · <code># TEXTO</code> subtítulo centrado</li>
+          <li><code>**texto**</code> va en negrita, por ejemplo <code>**Placa:** ABC-123</code></li>
+          <li><code>• texto</code> viñeta · <code>1. texto</code> punto numerado</li>
+          <li><code>Nombre: | EL SOL</code> dato en dos columnas alineadas</li>
+          <li><code>|| VÉRTICE | NORTE | ESTE</code> encabezado de tabla y debajo <code>1 | 9 274 | 644</code> por cada fila</li>
+        </ul></details>
+      </div>
+      <label for="fecha">Lugar y fecha<input id="fecha" type="text" placeholder="Lima, 20 de noviembre de 2026"></label>
+      <div class="lab">
+        <span class="sub">Firmas</span>
+        <div class="firmas" id="firmas"></div>
+        <div class="btnrow">
+          <button class="btn small" id="addF" type="button">+ Agregar firma</button>
+          <div class="seg" id="fLay" role="group" aria-label="Disposición de las firmas" hidden>
+            <button type="button" data-v="side" aria-pressed="true">Lado a lado</button>
+            <button type="button" data-v="stack" aria-pressed="false">Una debajo de otra</button>
+          </div>
+        </div>
+      </div>
+      <div class="warn" id="faltan"></div>
     </section>
 
     <section class="card" aria-labelledby="h-opt">
@@ -171,58 +237,234 @@ const DIARIOS={
    ]}
 };
 
-const SAMPLE={t:"EDICTO",b:"Ante el 3.er Juzgado Civil de Lima, Expediente N.° 01234-2026-0-1801-JR-CI-03, se tramita la sucesión intestada de don CARLOS ALBERTO RAMOS QUISPE, fallecido el 14 de agosto de 2026 en el distrito de Miraflores, provincia y departamento de Lima, promovida por su cónyuge doña ROSA ELENA DÍAZ TORRES y sus hijos MIGUEL ÁNGEL y ANA LUCÍA RAMOS DÍAZ.\nSe cita a quienes se consideren con derecho a la herencia para que se apersonen al proceso dentro del plazo de ley, bajo apercibimiento.\nLima, 5 de noviembre de 2026.",f:"Dra. PATRICIA SALAZAR MENDOZA\nSecretaria Judicial"};
+// ===== Tipos de aviso ("Edictos varios"): cada plantilla define cómo se acomoda cada parte =====
+const TIPOS={
+ edicto:{name:"Edicto estándar",desc:"Sucesiones, rectificaciones, notificaciones y otros edictos judiciales o notariales: título centrado, texto justificado y firmas centradas.",
+   enc:{align:"center",bold:"first"},title:{align:"center",plus:1.5},fecha:{align:"left",bold:false},firma:{align:"center",boldFirst:true},border:false,logo:false},
+ petitorio:{name:"Petitorio minero",desc:"Membrete de la entidad en negrita, párrafo legal, datos del petitorio en dos columnas y tabla de coordenadas UTM.",
+   enc:{align:"center",bold:"all"},title:{align:"center",plus:1},fecha:{align:"left",bold:false},firma:{align:"center",boldFirst:false},border:false,logo:false},
+ junta:{name:"Convocatoria a junta",desc:"Junta general de accionistas o asociados: empresa, fecha, hora, lugar y orden del día.",
+   enc:{align:"center",bold:"first"},title:{align:"center",plus:1},fecha:{align:"left",bold:false},firma:{align:"center",boldFirst:true},border:false,logo:false},
+ remate:{name:"Convocatoria de remate",desc:"Remate judicial: datos del martillero arriba, descripción del bien con viñetas, valores, día y hora, requisitos para postores y firma del especialista.",
+   enc:{align:"left",bold:"first"},title:{align:"left",plus:0},fecha:{align:"left",bold:true},firma:{align:"left",boldFirst:false},border:false,logo:false},
+ comunicado:{name:"Comunicado general",desc:"Comunicados al público con tabla de datos (predios, poseedores, padrones), logo opcional de la entidad y firma del área.",
+   enc:{align:"center",bold:"first"},title:{align:"center",plus:2},fecha:{align:"center",bold:false},firma:{align:"center",boldFirst:true},border:true,logo:true}
+};
+// Textos de ejemplo ficticios, con la misma estructura que los avisos reales.
+const SAMPLES={
+ edicto:{enc:"",t:"EDICTO",b:"Ante el 3.er Juzgado Civil de Lima, Expediente N.° 01234-2026-0-1801-JR-CI-03, se tramita la sucesión intestada de don CARLOS ALBERTO RAMOS QUISPE, fallecido el 14 de agosto de 2026 en el distrito de Miraflores, provincia y departamento de Lima, promovida por su cónyuge doña ROSA ELENA DÍAZ TORRES y sus hijos MIGUEL ÁNGEL y ANA LUCÍA RAMOS DÍAZ.\nSe cita a quienes se consideren con derecho a la herencia para que se apersonen al proceso dentro del plazo de ley, bajo apercibimiento.",fecha:"Lima, 5 de noviembre de 2026.",firmas:["Dra. PATRICIA SALAZAR MENDOZA\nSecretaria Judicial"]},
+ petitorio:{enc:"GOBIERNO REGIONAL DE CAJAMARCA\nDIRECCIÓN REGIONAL DE ENERGÍA Y MINAS",t:"PETITORIO DE CONCESIÓN MINERA",b:"El artículo 6 del D.S. N° 001-2012-MC (Reglamento de la Ley N° 29785) establece que debe efectuarse la consulta previa antes de aprobar la medida administrativa que faculte el inicio de la actividad de exploración o explotación de los recursos naturales donde se ubican los pueblos indígenas que podrían ver afectados directamente sus derechos colectivos. El título de concesión minera es una medida administrativa que no faculta a iniciar dichas actividades.\n## DATOS Y UBICACIÓN DEL PETITORIO\nNombre: | LOS ANDES 2026\nCódigo: | 01-00123-26\nFecha y hora de presentación: | 12/10/2026, 10:15\nHectáreas: | 200\nTitular: | MINERA EJEMPLO S.A.C.\n\nDistrito(s): | LA ENCAÑADA\nProvincia(s): | CAJAMARCA\nDepartamento(s): | CAJAMARCA\nZona: | 17\n\n# COORDENADAS UTM WGS84 (expresado en miles)\n|| VÉRTICE | NORTE | ESTE\n1 | 9 214 | 790\n2 | 9 213 | 790\n3 | 9 213 | 788\n4 | 9 214 | 788",fecha:"Cajamarca, 20 de octubre de 2026",firmas:["GOBIERNO REGIONAL DE CAJAMARCA\nDIRECCIÓN REGIONAL DE ENERGÍA Y MINAS","ING. JORGE MEDINA CASTRO\nDIRECTOR REGIONAL"],lay:"stack"},
+ junta:{enc:"",t:"CONVOCATORIA A JUNTA GENERAL DE ACCIONISTAS",b:"Se convoca a los señores accionistas de la empresa INVERSIONES EJEMPLO S.A.C. a la Junta General de Accionistas, que se celebrará el día 15 DE DICIEMBRE DEL 2026, a las 15:00 horas, en el domicilio de la empresa ubicado en Av. Los Álamos 450, distrito de Cayma, provincia y departamento de Arequipa.\nDe no haber quórum, la junta se celebrará en segunda convocatoria el día 22 de diciembre del 2026, a la misma hora y en el mismo lugar.\n**Orden del día:**\n1. Lectura del acta anterior.\n2. Aprobación de los estados financieros del ejercicio 2025.\n3. Elección del directorio.\n4. Asuntos varios.",fecha:"Arequipa, 20 de noviembre del 2026",firmas:["EL DIRECTORIO"]},
+ remate:{enc:"CARLOS PÉREZ RAMOS\nABOGADO - MARTILLERO PÚBLICO - REG. N° 000\nCel. 900 000 000",t:"PRIMERA CONVOCATORIA DE REMATE JUDICIAL DE BIEN MUEBLE",b:"En los seguidos por BANCO EJEMPLO S.A. contra JUAN QUISPE MAMANI, sobre obligación de dar suma de dinero, expediente N° 00123-2026-0-2001-JP-CI-01, el Primer Juzgado de Paz Letrado de Piura, a cargo del Dr. Luis Torres Vega, especialista legal Dra. Ana Ruiz Campos, ha dispuesto sacar a remate en primera convocatoria el siguiente bien mueble:\n## DESCRIPCIÓN DEL BIEN MUEBLE MATERIA DE REMATE\n• **Placa:** ABC-123\n• **Marca:** TOYOTA\n• **Modelo:** HIACE\n• **Año de fabricación:** 2015\n• **Color:** Blanco\n• **Partida registral:** 50000000\n**Valor de tasación:** US$ 8,000.00 (Ocho mil con 00/100 dólares americanos).\n**Base del remate:** US$ 5,333.33, equivalente a las 2/3 partes del valor de tasación.\n**Gravámenes:** Ninguno conforme a SUNARP.\n**Día y hora del remate:** Lunes 14-12-2026 a las 11:00 a.m.\n**Lugar del remate:** Calle Lima N° 100, distrito, provincia y departamento de Piura.\n**Los postores deberán:**\n1. Oblar antes del remate el 10 % del valor de tasación, en efectivo o cheque de gerencia girado a su nombre.\n2. Presentar su documento de identidad o RUC y el arancel judicial respectivo.\n3. Si actúan por representante, acreditar los poderes con su vigencia.",fecha:"Viernes, 20 de noviembre del 2026.",firmas:["Ana Ruiz Campos\nEspecialista Legal\nPrimer Juzgado de Paz Letrado de Piura"]},
+ comunicado:{enc:"",t:"COMUNICADO AL PÚBLICO EN GENERAL",b:"La Entidad Ejemplo, con domicilio en Av. Principal N° 100, distrito de Jesús María, Lima, en cumplimiento del numeral 7.1 del artículo 7 del Decreto Legislativo N° 1192, comunica que sobre las áreas afectadas por la ejecución del proyecto “Mejoramiento de la vía de acceso” se ha identificado a los siguientes poseedores:\n|| N° | NOMBRE DEL POSEEDOR | DISTRITO | ESTE (X) | NORTE (Y) | ÁREA M2\n1 | PÉREZ GÓMEZ, MARÍA | SULLANA | 536337,75 | 9460665,59 | 1,375.77\n2 | RAMOS DÍAZ, JORGE | BELLAVISTA | 536571,49 | 9460497,22 | 614.74\n3 | TORRES VERA, LUISA | SULLANA | 536709,99 | 9460111,08 | 126.41\nQuienes acrediten tener mejor derecho pueden presentar su oposición dentro del plazo de cinco (05) días hábiles contados a partir de la última publicación, en la mesa de partes de la entidad.",fecha:"Lima, noviembre de 2026",firmas:["DIRECCIÓN DE GESTIÓN PREDIAL"]}
+};
+
 const $=id=>document.getElementById(id);
-const st={dia:"lr",tar:"legal",vr:"nr",sel:null};
+const st={tipo:"edicto",dia:"lr",tar:"legal",vr:"nr",sel:null,mode:"paste",files:[],docText:"",firmas:[""],lay:"side",logo:null};
 const {jsPDF}=window.jspdf;
 const PT=0.352778, PAD=1.8, LH=1.16;
 const dec=v=>String(v).replace(".",",");
 const money=v=>v==null?"—":"S/ "+v.toLocaleString("es-PE",{minimumFractionDigits:2,maximumFractionDigits:2});
-const D=()=>DIARIOS[st.dia], T=()=>D().tarifas.find(t=>t.id===st.tar);
+const D=()=>DIARIOS[st.dia], T=()=>D().tarifas.find(t=>t.id===st.tar), TP=()=>TIPOS[st.tipo];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
-function blocks(){return {t:$("t").value.trim(),b:$("b").value.trim().split(/\n+/).map(s=>s.trim()).filter(Boolean),f:$("f").value.trim().split(/\n+/).map(s=>s.trim()).filter(Boolean)};}
-function layout(doc,B,wmm,fs){
-  const iw=wmm-2*PAD, ops=[]; let y=PAD; const lh=s=>s*LH*PT, tfs=fs+1.5;
-  if(B.t){doc.setFont("helvetica","bold");doc.setFontSize(tfs);doc.splitTextToSize(B.t.toUpperCase(),iw).forEach(s=>{y+=lh(tfs);ops.push({s,x:wmm/2,y:y-lh(tfs)*0.22,fs:tfs,b:1,a:"center"});});y+=lh(fs)*0.45;}
-  doc.setFont("helvetica","normal");doc.setFontSize(fs);
-  B.b.forEach((p,pi)=>{const L=doc.splitTextToSize(p,iw);L.forEach((s,i)=>{y+=lh(fs);ops.push({s,x:PAD,y:y-lh(fs)*0.22,fs,b:0,a:(i<L.length-1)?"justify":"left",w:iw});});if(pi<B.b.length-1)y+=lh(fs)*0.35;});
-  if(B.f.length){y+=lh(fs)*0.6;doc.setFont("helvetica","bold");B.f.forEach((p,i)=>{doc.splitTextToSize(p,iw).forEach(s=>{y+=lh(fs);ops.push({s,x:wmm/2,y:y-lh(fs)*0.22,fs,b:i===0?1:0,a:"center"});});});}
-  return {h:y+PAD,ops};
+// ===== Medición de texto: anchos de Helvetica tomados de jsPDF (a 1 pt) y guardados =====
+const MDOC=new jsPDF({unit:"mm"}), WC=new Map();
+function wid(w,b){const k=(b?"1":"0")+w;let v=WC.get(k);if(v==null){MDOC.setFont("helvetica",b?"bold":"normal");MDOC.setFontSize(10);v=MDOC.getTextWidth(w)/10;WC.set(k,v);}return v;}
+// "**Placa:** ABC" → palabras con negrita y si llevan espacio antes
+function toWords(s,forceBold){
+  const out=[];let bold=false,sp=false;
+  String(s).split("**").forEach((part,i)=>{if(i>0)bold=!bold;
+    part.split(/(\s+)/).forEach(p=>{if(!p)return;if(/^\s+$/.test(p)){sp=true;return;}out.push({w:p,b:forceBold||bold,sp:sp&&out.length>0});sp=false;});
+  });
+  return out;
 }
-function maxFont(doc,B,f){let lo=5,hi=12;for(let k=0;k<14;k++){const mid=(lo+hi)/2;layout(doc,B,f.w*10,mid).h<=f.h*10?lo=mid:hi=mid;}return Math.floor(lo*4)/4;}
-const fmtPt=v=>v>=11.75?"12 pt o más":dec(v)+" pt";
+const hasMark=s=>String(s).includes("**");
+function wrap(ws,width,fs){
+  const lines=[];let cur=[],x=0,over=false;
+  ws.forEach(w=>{const wd=wid(w.w,w.b)*fs,gap=(cur.length&&w.sp)?wid(" ",w.b)*fs:0;
+    if(cur.length&&x+gap+wd>width){lines.push({ws:cur,w:x});cur=[];x=0;}
+    const g=cur.length&&w.sp?wid(" ",w.b)*fs:0;cur.push({...w,g});x+=g+wd;if(wd>width+0.01)over=true;});
+  if(cur.length)lines.push({ws:cur,w:x});
+  return {lines,over};
+}
 
-function fillSelect(sel,items,val){sel.innerHTML=items.map(([v,l])=>`<option value="${v}"${v===val?" selected":""}>${l}</option>`).join("");}
+// ===== Cuerpo: renglones con formato simple → bloques =====
+function cells(line){let s=line.trim(),head=false;if(s.startsWith("||")){head=true;s=s.slice(2);}else if(s.startsWith("|"))s=s.slice(1);if(s.endsWith("|"))s=s.slice(0,-1);return {head,cells:s.split("|").map(c=>c.trim())};}
+const isRow=l=>/\|/.test(l)&&!/^\s*(#|•|-\s|\*\s|\d+[.)]\s)/.test(l);
+function parseBody(text){
+  const L=String(text).replace(/\r/g,"").split("\n"),out=[];
+  for(let i=0;i<L.length;i++){
+    const raw=L[i],s=raw.trim();
+    if(!s){out.push({k:"gap"});continue;}
+    if(isRow(s)){
+      const r=cells(s),last=out[out.length-1],prev2=out[out.length-2];
+      if(last&&last.k==="tbl"&&last.n===r.cells.length&&!r.head){last.rows.push(r);continue;}
+      // Un renglón vacío entre filas de la misma tabla (sin encabezado) deja un espacio pero mantiene las columnas alineadas
+      if(last&&last.k==="gap"&&prev2&&prev2.k==="tbl"&&prev2.n===r.cells.length&&!r.head){out.pop();prev2.rows.push({gap:true},r);continue;}
+      out.push({k:"tbl",n:r.cells.length,rows:[r]});continue;
+    }
+    let m;
+    if((m=s.match(/^##\s*(.+)$/))){out.push({k:"h2",t:m[1]});continue;}
+    if((m=s.match(/^#\s*(.+)$/))){out.push({k:"h1",t:m[1]});continue;}
+    if((m=s.match(/^(?:•|-|\*(?!\*))\s+(.+)$/))){out.push({k:"li",mark:"•",t:m[1]});continue;}
+    if((m=s.match(/^(\d{1,2}[.)]|[a-z][.)])\s+(.+)$/))){out.push({k:"li",mark:m[1],t:m[2]});continue;}
+    out.push({k:"p",t:s});
+  }
+  out.forEach(bk=>{if(bk.k==="tbl")bk.head=bk.rows.some(r=>r.head);});
+  return out;
+}
+const linesOf=s=>String(s||"").replace(/\r/g,"").split("\n").map(x=>x.trim()).filter(Boolean);
+function model(){
+  return {enc:linesOf($("enc").value),t:$("t").value.trim(),body:parseBody($("b").value),fecha:$("fecha").value.trim(),
+    firmas:st.firmas.map(linesOf).filter(f=>f.length)};
+}
+const hasText=M=>M.t||M.body.some(b=>b.k!=="gap")||M.enc.length;
+
+// ===== Maquetado: devuelve alto total y operaciones de dibujo (texto, líneas, logo) =====
+function layout(M,wmm,fs){
+  const tp=TP(),iw=wmm-2*PAD,ops=[];let y=PAD,bad=false,prev=null;
+  const lh=s=>s*LH*PT;
+  const place=(line,x0,width,size,align,just)=>{
+    let x=x0,extra=0;const gaps=line.ws.filter((w,i)=>i>0&&w.g>0).length;
+    if(just&&gaps)extra=(width-line.w)/gaps;else if(align==="center")x=x0+(width-line.w)/2;else if(align==="right")x=x0+width-line.w;
+    const base=y-lh(size)*0.22;
+    if(just){line.ws.forEach((w,i)=>{if(i>0&&w.g>0)x+=w.g+extra;ops.push({s:w.w,x,y:base,fs:size,b:w.b});x+=wid(w.w,w.b)*size;});return;}
+    // sin justificar: junta palabras seguidas con el mismo peso
+    let run=null;line.ws.forEach(w=>{const ww=wid(w.w,w.b)*size;
+      if(run&&run.b===w.b){run.s+=(w.g>0?" ":"")+w.w;x+=w.g+ww;}
+      else{x+=w.g;run={s:w.w,x,y:base,fs:size,b:w.b};ops.push(run);x+=ww;}});
+  };
+  const text=(ws,x0,width,size,align)=>{const {lines,over}=wrap(ws,width,size);if(over)bad=true;
+    lines.forEach((L,i)=>{y+=lh(size);place(L,x0,width,size,align,align==="justify"&&i<lines.length-1);});return lines.length;};
+  const space=k=>{if(prev===null||prev==="gap")return 0;if(k==="li"&&prev==="li")return lh(fs)*0.08;if(k==="h2"||k==="h1")return lh(fs)*0.45;return lh(fs)*0.3;};
+
+  // Encabezado
+  if(M.enc.length){const mk=M.enc.some(hasMark);
+    M.enc.forEach((l,i)=>text(toWords(l,tp.enc.bold==="all"||(!mk&&tp.enc.bold==="first"&&i===0)),PAD,iw,fs,tp.enc.align));
+    y+=lh(fs)*0.5;}
+  // Título (y logo a la derecha, si hay)
+  const tfs=fs+tp.title.plus;
+  if(M.t||(tp.logo&&st.logo)){
+    const y0=y;let tw=iw,lgH=0;
+    if(tp.logo&&st.logo){lgH=Math.max(lh(fs)*2.6,7);let lgW=lgH*st.logo.w/st.logo.h;if(lgW>iw*0.3){lgW=iw*0.3;lgH=lgW*st.logo.h/st.logo.w;}
+      ops.push({img:1,x:PAD+iw-lgW,y:y0+0.3,w:lgW,h:lgH});tw=iw-lgW-2;}
+    if(M.t)text(toWords(M.t.toUpperCase(),true),PAD,tw,tfs,tp.title.align);
+    y=Math.max(y,y0+lgH+0.6);
+    y+=lh(fs)*0.45;}
+  // Cuerpo
+  M.body.forEach(bk=>{
+    if(bk.k==="gap"){if(prev!==null&&prev!=="gap")y+=lh(fs)*0.5;prev="gap";return;}
+    y+=space(bk.k);
+    if(bk.k==="p")text(toWords(bk.t),PAD,iw,fs,"justify");
+    else if(bk.k==="h2")text(toWords(bk.t,true),PAD,iw,fs,"left");
+    else if(bk.k==="h1")text(toWords(bk.t,true),PAD,iw,fs,"center");
+    else if(bk.k==="li"){
+      const bullet=bk.mark==="•",ind=bullet?1.6:0,mw=wid(bk.mark,false)*fs,hang=ind+Math.max(mw+1.3,bullet?2.4:3.4);
+      const y0=y;ops.push({s:bk.mark,x:PAD+ind,y:y0+lh(fs)-lh(fs)*0.22,fs,b:false});
+      text(toWords(bk.t),PAD+hang,iw-hang,fs,"justify");
+    }
+    else if(bk.k==="tbl")table(bk);
+    prev=bk.k;
+  });
+  function table(bk){
+    const bord=tp.border,cp=bord?0.8:0.4,vp=bord?0.55:0.05,n=bk.n;
+    const rows=bk.rows.map(r=>r.gap?r:{head:r.head,ws:r.cells.map(c=>toWords(c,r.head))});
+    const nat=Array(n).fill(0),min=Array(n).fill(0);
+    rows.forEach(r=>{if(r.gap)return;r.ws.forEach((ws,c)=>{let w=0,mx=0;ws.forEach((x,i)=>{const ww=wid(x.w,x.b)*fs;w+=ww+(i&&x.sp?wid(" ",x.b)*fs:0);mx=Math.max(mx,ww);});
+      nat[c]=Math.max(nat[c],w+2*cp+(bord?0:1.2));min[c]=Math.max(min[c],mx+2*cp);});});
+    const sN=nat.reduce((a,b)=>a+b,0),sM=min.reduce((a,b)=>a+b,0);let W;
+    if(sN<=iw){const extra=iw-sN;
+      // datos en dos columnas: la etiqueta queda justa y el valor se lleva el resto; las tablas con encabezado reparten el espacio
+      W=(!bk.head&&n===2)?[nat[0],nat[1]+extra]:nat.map(v=>v+extra*v/sN);}
+    else if(sM<=iw){const room=iw-sM,want=sN-sM;W=min.map((v,c)=>v+room*(nat[c]-min[c])/want);}
+    else{bad=true;W=min.map(v=>v*iw/sM);}
+    const xs=[PAD];W.forEach(w=>xs.push(xs[xs.length-1]+w));
+    const al=bk.head?"center":"left";
+    if(bord)ops.push({ln:[PAD,y,PAD+iw,y]});
+    rows.forEach(r=>{
+      if(r.gap){y+=lh(fs)*0.5;return;}
+      const y0=y;let h=0;
+      r.ws.forEach((ws,c)=>{y=y0+vp;const k=text(ws,xs[c]+cp,W[c]-2*cp,fs,al);h=Math.max(h,y-y0);});
+      y=y0+h+vp;
+      if(bord){ops.push({ln:[PAD,y,PAD+iw,y]});xs.forEach(x=>ops.push({ln:[x,y0,x,y]}));}
+    });
+  }
+  // Fecha
+  if(M.fecha){y+=lh(fs)*0.8;text(toWords(M.fecha,tp.fecha.bold),PAD,iw,fs,tp.fecha.align);}
+  // Firmas (1 a 3): lado a lado o una debajo de otra
+  if(M.firmas.length){
+    y+=lh(fs)*(M.fecha?0.9:1.1);
+    const bolds=f=>{const mk=f.some(hasMark);return f.map((l,i)=>toWords(l,!mk&&tp.firma.boldFirst&&i===0));};
+    if(M.firmas.length>1&&st.lay==="side"){
+      const n=M.firmas.length,cw=iw/n,y0=y;let maxY=y;
+      M.firmas.forEach((f,i)=>{y=y0;bolds(f).forEach(ws=>text(ws,PAD+i*cw+1,cw-2,fs,"center"));maxY=Math.max(maxY,y);});
+      y=maxY;
+    }else{
+      M.firmas.forEach((f,i)=>{if(i)y+=lh(fs)*0.7;bolds(f).forEach(ws=>text(ws,PAD,iw,fs,tp.firma.align));});
+    }
+  }
+  return {h:y+PAD,ops,bad};
+}
+function maxFont(M,f){const H=f.h*10,W=f.w*10;let lo=4,hi=12.5;
+  const ok=s=>{const r=layout(M,W,s);return !r.bad&&r.h<=H;};
+  if(!ok(lo))return 0;
+  for(let k=0;k<12;k++){const mid=(lo+hi)/2;ok(mid)?lo=mid:hi=mid;}return Math.floor(lo*4)/4;}
+const fmtPt=v=>v>=12?"12 pt o más":dec(v)+" pt";
+
+// ===== Selectores =====
+function fillSelect(sel,items,val){sel.innerHTML=items.map(([v,l])=>`<option value="${v}"${v===val?" selected":""}>${esc(l)}</option>`).join("");}
 function syncSelectors(){
+  fillSelect($("tipo"),Object.entries(TIPOS).map(([k,t])=>[k,t.name]),st.tipo);
+  $("tipoDesc").textContent=TP().desc;
   fillSelect($("dia"),Object.entries(DIARIOS).map(([k,d])=>[k,d.name]),st.dia);
   if(!D().tarifas.find(t=>t.id===st.tar))st.tar=D().tarifas[0].id;
   fillSelect($("tar"),D().tarifas.map(t=>[t.id,t.name]),st.tar);
   if(!T().variants.find(v=>v[0]===st.vr))st.vr=T().variants[0][0];
   fillSelect($("var"),T().variants,st.vr);
-  $("hDiario").textContent=D().name;$("hNote").textContent=T().name+" · "+T().iva;
-  $("medNote").textContent=D().mods?`Columna de ${dec(D().cols[0])} cm · ${D().mods.length} módulos de alto (1 módulo = ${dec(D().mods[0])} cm).`:"Este diario todavía no tiene medidas en cm cargadas.";
-  $("foot").textContent=[T().note,"El texto de ejemplo es ficticio. Confirmar con cada diario la tipografía e interlineado que exige."].filter(Boolean).join(" ");
+  $("hDiario").textContent=D().name;$("hNote").textContent=TP().name+" · "+T().name;
+  $("medNote").textContent=D().mods?`Columna de ${dec(D().cols[0])} cm · ${D().mods.length} módulos de alto (1 módulo = ${dec(D().mods[0])} cm). ${T().iva}.`:"Este diario todavía no tiene medidas en cm cargadas.";
+  $("logoRow").hidden=!TP().logo;
+  $("foot").textContent=[T().note,"Los textos de ejemplo son ficticios. Confirmar con cada diario la tipografía e interlineado que exige."].filter(Boolean).join(" ");
 }
 
-let rows=[];
+// ===== Firmas: hasta 3 =====
+function renderFirmas(){
+  const box=$("firmas");box.innerHTML="";
+  st.firmas.forEach((v,i)=>{
+    const d=document.createElement("div");d.className="firma";
+    d.innerHTML=`<div class="fh"><label for="f${i}">Firma ${i+1}</label>${st.firmas.length>1?`<button class="x" type="button" data-rm="${i}">Quitar</button>`:""}</div><textarea id="f${i}" rows="2" placeholder="Nombre\nCargo o entidad"></textarea>`;
+    box.appendChild(d);
+    const ta=d.querySelector("textarea");ta.value=v;ta.addEventListener("input",()=>{st.firmas[i]=ta.value;later();});
+  });
+  box.querySelectorAll("[data-rm]").forEach(b=>b.onclick=()=>{st.firmas.splice(+b.dataset.rm,1);renderFirmas();compute();});
+  $("addF").disabled=st.firmas.length>=3;$("addF").textContent=st.firmas.length>=3?"Máximo 3 firmas":"+ Agregar firma";
+  $("fLay").hidden=st.firmas.length<2;
+  $("fLay").querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.v===st.lay)));
+}
+$("addF").onclick=()=>{if(st.firmas.length<3){st.firmas.push("");renderFirmas();$("f"+(st.firmas.length-1)).focus();compute();}};
+$("fLay").querySelectorAll("button").forEach(b=>b.onclick=()=>{st.lay=b.dataset.v;renderFirmas();compute();});
+
+// ===== Cálculo de formatos =====
+let rows=[],MOD=null;
 function compute(){
-  const doc=new jsPDF({unit:"mm"}), B=blocks(), min=+$("fs").value, d=D(), t=T();
+  const M=model(),min=+$("fs").value,d=D(),t=T();MOD=M;
   rows=t.formats.map(([k,prices,note])=>{
-    const [m,c]=k.split("x").map(Number), pr=prices[st.vr];
+    const [m,c]=k.split("x").map(Number),pr=prices[st.vr];
     if(!d.mods||!d.mods[m-1]||!d.cols[c-1])return {k,m,c,pr,note,nodim:true};
     const f={h:d.mods[m-1],w:d.cols[c-1]};
-    const mf=maxFont(doc,B,f), need=layout(doc,B,f.w*10,min).h;
-    return {k,m,c,pr,note,...f,mf,fill:need/(f.h*10),fits:mf>=min};
+    const mf=maxFont(M,f),need=layout(M,f.w*10,min);
+    return {k,m,c,pr,note,...f,mf,fill:need.bad?1.5:need.h/(f.h*10),fits:mf>=min};
   });
-  const ok=rows.filter(r=>r.fits&&r.pr!=null).sort((a,b)=>a.pr-b.pr), rec=ok[0]||null;
+  const ok=rows.filter(r=>r.fits&&r.pr!=null).sort((a,b)=>a.pr-b.pr),rec=ok[0]||null;
   if(!st.sel||!rows.find(r=>r.k===st.sel&&r.fits))st.sel=rec?rec.k:null;
   renderOpts(rec);renderProof();
   const why=$("why");
-  if(!B.b.length){why.innerHTML="Escribí o pegá el texto para calcular el tamaño.";return;}
+  if(!hasText(M)){why.innerHTML="Escribí o cargá el texto para calcular el tamaño.";return;}
   if(!d.mods){why.innerHTML=`<b>${d.name}</b>: faltan las medidas en cm del módulo y la columna para calcular el tamaño. Abajo, los precios del tarifario.`;return;}
   if(rec){const alt=ok.find(r=>r!==rec&&r.mf>=rec.mf+0.5);
-    why.innerHTML=`<b>${rec.k} (${dec(rec.h)} × ${dec(rec.w)} cm)</b> es el formato más económico de esta tarifa donde el texto entra con letra de ${fmtPt(rec.mf).replace(" o más","")} o más. ${alt?`Si querés que se lea más cómodo, <b>${alt.k}</b> permite ${fmtPt(alt.mf)} por ${money(alt.pr)}.`:""}`;}
-  else why.innerHTML="El texto no entra en los formatos de esta tarifa con esa letra mínima. Probá con una letra más chica u otra tarifa.";
+    why.innerHTML=`<b>${rec.k} (${dec(rec.h)} × ${dec(rec.w)} cm)</b> es el formato más económico de esta tarifa donde el aviso entra con letra de ${fmtPt(rec.mf).replace(" o más","")} o más. ${alt?`Si querés que se lea más cómodo, <b>${alt.k}</b> permite ${fmtPt(alt.mf)} por ${money(alt.pr)}.`:""}`;}
+  else why.innerHTML=`El texto no entra en los formatos de esta tarifa con letra de ${dec(min)} pt. Probá con una letra más chica u otra tarifa${M.body.some(b=>b.k==="tbl"&&b.n>4)?"; las tablas con muchas columnas necesitan formatos anchos":""}.`;
 }
 function renderOpts(rec){
   const box=$("opts");box.innerHTML="";
@@ -233,59 +475,150 @@ function renderOpts(rec){
     b.className="opt"+(usable?"":" no")+(r.fill>1?" over":"");b.setAttribute("aria-pressed",String(st.sel===r.k));b.disabled=!usable;
     const pct=r.nodim?0:Math.min(100,Math.round(r.fill*100));
     const info=r.nodim?"sin medidas en cm":`${dec(r.h)} × ${dec(r.w)} cm · ${r.fits?"entra con letra hasta "+fmtPt(r.mf):"no entra"}`;
-    b.innerHTML=`<div class="mc">${r.k}<small>mod × col</small></div><div><div class="meta">${info}${rec&&r.k===rec.k?'<span class="pill rec">Recomendado</span>':""}${r.note?`<span class="pill chk">${r.note}</span>`:""}</div><div class="bar" aria-hidden="true"><i style="width:${pct}%"></i></div></div><div class="price">${money(r.pr)}<small>${vl}</small></div>`;
+    b.innerHTML=`<div class="mc">${r.k}<small>mod × col</small></div><div><div class="meta">${info}${rec&&r.k===rec.k?'<span class="pill rec">Recomendado</span>':""}${r.note?`<span class="pill chk">${esc(r.note)}</span>`:""}</div><div class="bar" aria-hidden="true"><i style="width:${pct}%"></i></div></div><div class="price">${money(r.pr)}<small>${esc(vl)}</small></div>`;
     b.onclick=()=>{if(!usable)return;st.sel=r.k;renderOpts(rec);renderProof();};
     box.appendChild(b);
   });
 }
-function selected(){return rows.find(r=>r.k===st.sel&&!r.nodim);}
-function opsFor(r){return layout(new jsPDF({unit:"mm"}),blocks(),r.w*10,r.mf).ops;}
+function selected(){return rows.find(r=>r.k===st.sel&&!r.nodim&&r.fits);}
+function opsFor(r){return layout(MOD||model(),r.w*10,r.mf).ops;}
 function renderProof(){
   const r=selected(),cv=$("cv"),ctx=cv.getContext("2d");
   if(!r){cv.width=10;cv.height=10;cv.style.width="0";cv.style.height="0";$("dims").textContent=D().mods?"":"Sin medidas: no hay vista previa.";$("btnPDF").disabled=true;return;}
   $("btnPDF").disabled=false;
-  const pxmm=96/25.4, wpx=r.w*10*pxmm, hpx=r.h*10*pxmm, dpr=Math.max(2,window.devicePixelRatio||1);
+  const pxmm=96/25.4,wpx=r.w*10*pxmm,hpx=r.h*10*pxmm,dpr=Math.max(2,window.devicePixelRatio||1);
   cv.width=Math.round(wpx*dpr);cv.height=Math.round(hpx*dpr);cv.style.width=wpx+"px";cv.style.height=hpx+"px";
   ctx.setTransform(dpr*pxmm,0,0,dpr*pxmm,0,0);ctx.fillStyle="#fff";ctx.fillRect(0,0,r.w*10,r.h*10);
-  ctx.strokeStyle="#111";ctx.lineWidth=0.3;ctx.strokeRect(0.15,0.15,r.w*10-0.3,r.h*10-0.3);ctx.fillStyle="#111";
-  opsFor(r).forEach(o=>{ctx.font=`${o.b?"700":"400"} ${o.fs*PT}px Helvetica, Arial, sans-serif`;ctx.textAlign=o.a==="center"?"center":"left";
-    if(o.a==="justify"){const words=o.s.split(" ");const tw=words.reduce((a,w)=>a+ctx.measureText(w).width,0);const gap=words.length>1?(o.w-tw)/(words.length-1):0;let x=o.x;words.forEach(w=>{ctx.fillText(w,x,o.y);x+=ctx.measureText(w).width+gap;});}
-    else ctx.fillText(o.s,o.x,o.y);});
-  $("dims").textContent=`${D().name} · ${r.k} · ${dec(r.h)} × ${dec(r.w)} cm · letra ${fmtPt(r.mf)} · tamaño real en pantalla aproximado`;
+  ctx.strokeStyle="#111";ctx.lineWidth=0.3;ctx.strokeRect(0.15,0.15,r.w*10-0.3,r.h*10-0.3);ctx.fillStyle="#111";ctx.textAlign="left";
+  opsFor(r).forEach(o=>{
+    if(o.ln){ctx.lineWidth=0.18;ctx.beginPath();ctx.moveTo(o.ln[0],o.ln[1]);ctx.lineTo(o.ln[2],o.ln[3]);ctx.stroke();return;}
+    if(o.img){if(st.logo)ctx.drawImage(st.logo.img,o.x,o.y,o.w,o.h);return;}
+    ctx.font=`${o.b?"700":"400"} ${o.fs*PT}px Helvetica, Arial, sans-serif`;ctx.fillText(o.s,o.x,o.y);});
+  $("dims").textContent=`${TP().name} · ${D().name} · ${r.k} · ${dec(r.h)} × ${dec(r.w)} cm · letra ${fmtPt(r.mf)} · tamaño real en pantalla aproximado`;
 }
 function buildDoc(r){
   const W=r.w*10,H=r.h*10,doc=new jsPDF({unit:"mm",format:[W,H],orientation:W>H?"landscape":"portrait"});
-  doc.setLineWidth(0.3);doc.rect(0.15,0.15,W-0.3,H-0.3);
-  opsFor(r).forEach(o=>{doc.setFont("helvetica",o.b?"bold":"normal");doc.setFontSize(o.fs);
-    if(o.a==="justify")doc.text(o.s,o.x,o.y,{align:"justify",maxWidth:o.w});else doc.text(o.s,o.x,o.y,{align:o.a});});
-  doc.setProperties({title:"Aviso "+D().name+" "+r.k});
+  doc.setLineWidth(0.3);doc.rect(0.15,0.15,W-0.3,H-0.3);doc.setLineWidth(0.18);
+  opsFor(r).forEach(o=>{
+    if(o.ln){doc.line(o.ln[0],o.ln[1],o.ln[2],o.ln[3]);return;}
+    if(o.img){if(st.logo)doc.addImage(st.logo.data,"PNG",o.x,o.y,o.w,o.h);return;}
+    doc.setFont("helvetica",o.b?"bold":"normal");doc.setFontSize(o.fs);doc.text(o.s,o.x,o.y);});
+  doc.setProperties({title:TP().name+" · "+D().name+" "+r.k});
   return doc;
 }
-const pdfName=r=>`aviso_${D().short}_${r.k}.pdf`;
+const pdfName=r=>`aviso_${st.tipo}_${D().short}_${r.k}.pdf`;
 
-["t","b","f"].forEach(id=>$(id).addEventListener("input",()=>{clearTimeout(window._d);window._d=setTimeout(compute,180);}));
+// ===== Tipo de aviso: si el texto es el ejemplo (o está vacío), carga el ejemplo del nuevo tipo =====
+function fieldsSnapshot(){return JSON.stringify([$("enc").value,$("t").value,$("b").value,$("fecha").value,st.firmas]);}
+function sampleSnapshot(k){const s=SAMPLES[k];return JSON.stringify([s.enc,s.t,s.b,s.fecha,s.firmas]);}
+function loadSample(k){const s=SAMPLES[k];$("enc").value=s.enc;$("t").value=s.t;$("b").value=s.b;$("fecha").value=s.fecha;st.firmas=[...s.firmas];st.lay=s.lay||"side";$("faltan").textContent="";renderFirmas();}
+const isPristine=()=>{const cur=fieldsSnapshot();return cur===sampleSnapshot(st.tipo)||!JSON.parse(cur).flat().join("").trim();};
+$("tipo").addEventListener("change",e=>{const keep=!isPristine();st.tipo=e.target.value;st.sel=null;if(!keep)loadSample(st.tipo);syncSelectors();compute();});
+
+// ===== Barra de formato del cuerpo =====
+const INS={sec:["## ","SUBTÍTULO"],neg:["**","texto","**"],vin:["• ","texto"],num:["1. ","texto"],dat:["","Etiqueta: | valor"],tab:["","|| COLUMNA 1 | COLUMNA 2 | COLUMNA 3\ndato | dato | dato"]};
+document.querySelectorAll("[data-ins]").forEach(b=>b.onclick=()=>{
+  const ta=$("b"),[pre,ph,post=""]=INS[b.dataset.ins],s=ta.selectionStart,e=ta.selectionEnd,v=ta.value,selTxt=v.slice(s,e);
+  let ins,cs,ce;
+  if(b.dataset.ins==="neg"){ins=pre+(selTxt||ph)+post;cs=s+pre.length;ce=cs+(selTxt||ph).length;}
+  else{const ls=v.lastIndexOf("\n",s-1)+1,atStart=s===ls&&!selTxt;
+    const lineHasText=v.slice(ls,v.indexOf("\n",s)<0?v.length:v.indexOf("\n",s)).trim().length>0;
+    if(selTxt||(!lineHasText)){ins=(s>0&&v[s-1]!=="\n"?"\n":"")+pre+(selTxt||ph);cs=s+ins.length-(selTxt||ph).length;ce=s+ins.length;}
+    else{ // aplica el prefijo al renglón actual
+      ta.setRangeText(pre,ls,ls,"end");ta.focus();later();return;}
+  }
+  ta.setRangeText(ins,s,e,"end");ta.setSelectionRange(cs,ce);ta.focus();later();
+});
+
+// ===== Carga de texto: pegar o subir archivo =====
+function setMode(m){st.mode=m;$("mPaste").setAttribute("aria-pressed",String(m==="paste"));$("mFile").setAttribute("aria-pressed",String(m==="file"));$("paneP").hidden=m!=="paste";$("paneF").hidden=m!=="file";
+  $("btnAI").textContent=m==="file"?"Transcribir y ordenar con IA":"Ordenar con IA";$("aiStatus").textContent="";}
+$("mPaste").onclick=()=>setMode("paste");$("mFile").onclick=()=>setMode("file");
+const readURL=f=>new Promise((ok,ko)=>{const r=new FileReader();r.onload=()=>ok(r.result);r.onerror=()=>ko(r.error);r.readAsDataURL(f);});
+const loadScript=src=>new Promise((ok,ko)=>{const s=document.createElement("script");s.src=src;s.onload=ok;s.onerror=ko;document.head.appendChild(s);});
+async function shrink(f){ // fotos: se achican a 2000 px para que suban rápido
+  try{const bmp=await createImageBitmap(f),k=Math.min(1,2000/Math.max(bmp.width,bmp.height)),c=document.createElement("canvas");
+    c.width=Math.round(bmp.width*k);c.height=Math.round(bmp.height*k);const x=c.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,c.width,c.height);x.drawImage(bmp,0,0,c.width,c.height);
+    return {mime:"image/jpeg",data:c.toDataURL("image/jpeg",0.86).split(",")[1]};}
+  catch(e){return {mime:f.type||"image/jpeg",data:(await readURL(f)).split(",")[1]};}
+}
+async function docxText(f){
+  if(!window.JSZip)await loadScript("https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js");
+  const z=await JSZip.loadAsync(f),xml=await z.file("word/document.xml").async("string");
+  const d=new DOMParser().parseFromString(xml,"application/xml"),body=d.getElementsByTagName("w:body")[0],out=[];
+  const pText=p=>{let s="";const w=d.createTreeWalker(p,NodeFilter.SHOW_ELEMENT);let n;while((n=w.nextNode())){if(n.nodeName==="w:t")s+=n.textContent;else if(n.nodeName==="w:tab")s+=" ";else if(n.nodeName==="w:br")s+="\n";}return s;};
+  [...body.children].forEach(el=>{
+    if(el.nodeName==="w:p")out.push(pText(el));
+    else if(el.nodeName==="w:tbl")[...el.getElementsByTagName("w:tr")].forEach(tr=>out.push([...tr.children].filter(c=>c.nodeName==="w:tc").map(tc=>[...tc.getElementsByTagName("w:p")].map(pText).join(" ").trim()).join(" | ")));
+  });
+  return out.join("\n").replace(/\n{3,}/g,"\n\n").trim();
+}
+function showFiles(list,extra){
+  $("files").innerHTML=list.map(f=>`<div><span>${esc(f.name)}</span><span class="note" style="flex:none">${f.size>1048576?dec((f.size/1048576).toFixed(1))+" MB":Math.max(1,Math.round(f.size/1024))+" KB"}</span></div>`).join("")+(extra?`<div class="note" style="border:0;background:none;padding:0">${extra}</div>`:"");
+}
+async function onFiles(fl){
+  const list=[...fl];st.files=[];st.docText="";$("aiStatus").textContent="";
+  if(!list.length){showFiles([]);return;}
+  const docx=list.find(f=>/\.docx$/i.test(f.name));
+  if(!docx&&list.some(f=>/\.doc$/i.test(f.name))){showFiles(list,"Los Word viejos (.doc) no se pueden leer: guardalo como .docx o PDF.");return;}
+  try{
+    if(docx){$("aiStatus").textContent="Leyendo el Word…";st.docText=await docxText(docx);showFiles([docx],`Word leído: ${st.docText.split(/\s+/).filter(Boolean).length} palabras.`);$("aiStatus").textContent="";return;}
+    const pdfs=list.filter(f=>/pdf$/i.test(f.type)||/\.pdf$/i.test(f.name)),imgs=list.filter(f=>/^image\//.test(f.type));
+    const pick=pdfs.length?[pdfs[0]]:imgs.slice(0,3);
+    if(!pick.length){showFiles(list,"Ese tipo de archivo no se puede leer. Usá PDF, Word (.docx) o fotos JPG/PNG.");return;}
+    $("aiStatus").textContent="Preparando el archivo…";
+    for(const f of pick){
+      if(pdfs.length){if(f.size>4*1048576){showFiles([f],"El PDF pesa más de 4 MB. Probá con fotos de las páginas o pegá el texto.");$("aiStatus").textContent="";return;}
+        st.files.push({mime:"application/pdf",data:(await readURL(f)).split(",")[1]});}
+      else st.files.push(await shrink(f));
+    }
+    const note=(pdfs.length&&list.length>1)?"Se usa solo el primer PDF.":(imgs.length>3?"Se usan las primeras 3 fotos.":"");
+    showFiles(pick,note);$("aiStatus").textContent="";
+  }catch(e){showFiles(list,"No se pudo leer el archivo.");$("aiStatus").textContent="";}
+}
+$("file").addEventListener("change",e=>onFiles(e.target.files));
+["dragenter","dragover"].forEach(ev=>$("drop").addEventListener(ev,e=>{e.preventDefault();$("drop").classList.add("over");}));
+["dragleave","drop"].forEach(ev=>$("drop").addEventListener(ev,e=>{e.preventDefault();$("drop").classList.remove("over");}));
+$("drop").addEventListener("drop",e=>{if(e.dataTransfer.files.length)onFiles(e.dataTransfer.files);});
+
+// ===== Logo (comunicados) =====
+$("logo").addEventListener("change",async e=>{const f=e.target.files[0];if(!f)return;
+  try{const bmp=await createImageBitmap(f),k=Math.min(1,600/Math.max(bmp.width,bmp.height)),c=document.createElement("canvas");c.width=Math.round(bmp.width*k);c.height=Math.round(bmp.height*k);c.getContext("2d").drawImage(bmp,0,0,c.width,c.height);
+    const data=c.toDataURL("image/png"),img=new Image();img.onload=()=>{st.logo={data,img,w:c.width,h:c.height};$("logoName").textContent=f.name;$("logoX").hidden=false;compute();};img.src=data;}
+  catch(err){$("logoName").textContent="No se pudo leer la imagen.";}
+  e.target.value="";});
+$("logoX").onclick=()=>{st.logo=null;$("logoName").textContent="Sin logo";$("logoX").hidden=true;compute();};
+
+// ===== Eventos =====
+const later=()=>{clearTimeout(window._d);window._d=setTimeout(compute,200);};
+["enc","t","b","fecha"].forEach(id=>$(id).addEventListener("input",later));
 $("fs").addEventListener("change",compute);
 $("dia").addEventListener("change",e=>{st.dia=e.target.value;st.sel=null;syncSelectors();compute();});
 $("tar").addEventListener("change",e=>{st.tar=e.target.value;st.sel=null;syncSelectors();compute();});
 $("var").addEventListener("change",e=>{st.vr=e.target.value;st.sel=null;compute();});
-$("t").value=SAMPLE.t;$("b").value=SAMPLE.b;$("f").value=SAMPLE.f;
-syncSelectors();compute();
+loadSample(st.tipo);syncSelectors();compute();
 
-// standalone: descarga directa + IA por /api/ordenar
+// ===== PDF e IA =====
 $("btnPDF").onclick=()=>{const r=selected();if(!r)return;buildDoc(r).save(pdfName(r));$("pdfStatus").textContent="PDF descargado.";};
 $("btnAI").onclick=async()=>{
-  const raw=$("raw").value.trim();if(!raw){$("aiStatus").textContent="Pegá primero el texto.";return;}
-  $("btnAI").disabled=true;$("aiStatus").textContent="Pensando…";
+  const payload={tipo:st.tipo,diario:D().name,texto:"",archivos:[]};
+  if(st.mode==="paste"){payload.texto=$("raw").value.trim();if(!payload.texto){$("aiStatus").textContent="Pegá primero el texto.";return;}}
+  else if(st.docText)payload.texto=st.docText;
+  else if(st.files.length)payload.archivos=st.files;
+  else{$("aiStatus").textContent="Elegí primero el archivo.";return;}
+  $("btnAI").disabled=true;$("aiStatus").textContent=payload.archivos.length?"Leyendo el archivo… puede tardar hasta un minuto.":"Pensando…";
   try{
-    const res=await fetch("/api/ordenar",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({texto:raw,diario:D().name})});
-    if(!res.ok)throw new Error(await res.text());
+    const res=await fetch("/api/ordenar",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
+    if(!res.ok){let m="";try{m=(await res.json()).error||"";}catch(e){}throw new Error(m);}
     const j=await res.json();
-    $("t").value=j.titulo||"";$("b").value=(j.cuerpo||[]).join("\n");$("f").value=(j.firma||[]).join("\n");
+    $("enc").value=(j.encabezado||[]).join("\n");$("t").value=j.titulo||"";$("b").value=(j.cuerpo||[]).join("\n");$("fecha").value=j.fecha||"";
+    let fs=(j.firmas||[]).map(f=>(Array.isArray(f)?f:[f]).join("\n")).filter(s=>s.trim());
+    if(fs.length>3)fs=[fs[0],fs[1],fs.slice(2).join("\n")];
+    st.firmas=fs.length?fs:[""];if(fs.length>1)st.lay="side";renderFirmas();
     $("faltan").textContent=(j.faltantes&&j.faltantes.length)?"Revisar, podría faltar: "+j.faltantes.join(", ")+".":"";
-    $("aiStatus").textContent="Listo. Revisá el texto antes de enviar.";compute();
-  }catch(e){$("aiStatus").textContent="La IA no respondió (puede estar saturada). Probá de nuevo en un minuto o editá el texto a mano.";}
+    $("aiStatus").textContent="Listo. Revisá el texto antes de enviar.";st.sel=null;compute();
+  }catch(e){$("aiStatus").textContent=(e.message&&e.message.length<120?e.message+". ":"")+"La IA no respondió bien. Probá de nuevo en un minuto o cargá el texto a mano.";}
   finally{$("btnAI").disabled=false;}
 };
 </script>
-
 </body></html>
