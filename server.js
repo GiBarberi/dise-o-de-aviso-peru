@@ -34,7 +34,7 @@ Reglas: no cambies, resumas ni agregues contenido legal; solo corregí espacios 
 Separá en:
 - "encabezado": renglones del membrete que va arriba del título (entidad, martillero, contactos); lista vacía si no hay.
 - "titulo": el título principal.
-- "cuerpo": lista de renglones con este formato: un renglón por párrafo; "## TEXTO" para subtítulos de sección; "# TEXTO" para subtítulos centrados; "• texto" para viñetas; "1. texto" para puntos numerados; "**texto**" solo donde el original está en negrita; tablas con celdas separadas por " | ", una fila por renglón y la fila de encabezados empezando con "|| "; "" para dejar un espacio entre bloques.
+- "cuerpo": lista de renglones con este formato: un renglón por párrafo; "## TEXTO" para subtítulos de sección; "# TEXTO" para subtítulos centrados; "• texto" para viñetas; "1. texto" para puntos numerados; "**texto**" solo donde el original está en negrita; tablas con celdas separadas por " | ", una fila por renglón y la fila de encabezados empezando con "|| "; "" para dejar un espacio entre bloques. Las tablas van completas, con todas sus filas y columnas; si una celda tiene varios renglones (dos nombres, dos coordenadas) separalos con <br>; si la tabla tiene encabezados agrupados, aplaná todo en una sola fila de encabezados y poné el título del grupo como subtítulo "# " antes de la tabla.
 - "fecha": el renglón de lugar y fecha que va antes de las firmas ("" si no hay).
 - "firmas": lista de firmas; cada firma es una lista de renglones (nombre, cargo, entidad). Si firman 2 o 3 personas o áreas, separalas.
 - "faltantes": datos que suelen ser obligatorios en este tipo de aviso y no aparecen (${falt}); lista vacía si no falta nada.
@@ -78,17 +78,20 @@ async function ordenar(req, res) {
   const parts = [{ text: PROMPT(tipo, diario, texto) }];
   if (!texto) archivos.forEach((a) => parts.push({ inline_data: { mime_type: a.mime, data: a.data } }));
 
-  // Si un modelo está saturado (429/500/503), prueba el siguiente.
+  // Si un modelo está saturado, no existe o tarda demasiado, prueba el siguiente.
   let data = null, lastStatus = 0;
   for (const model of MODELS) {
-    const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
-      method: "POST",
+    let r;
+    try {
+      r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
+      method: "POST", signal: AbortSignal.timeout(70000),
       headers: { "Content-Type": "application/json", "x-goog-api-key": process.env.GEMINI_API_KEY },
       body: JSON.stringify({ contents: [{ role: "user", parts }], generationConfig: { responseMimeType: "application/json", temperature: 0 } }),
-    });
+      });
+    } catch { lastStatus = 504; continue; } // demoró demasiado: prueba el siguiente modelo
     if (r.ok) { data = await r.json(); break; }
     lastStatus = r.status;
-    if (![429, 500, 503].includes(r.status)) break;
+    if ([400, 401, 403].includes(r.status)) break; // clave o pedido inválido: no tiene sentido reintentar
   }
   if (!data) return send(res, 502, { error: "Error de Gemini " + lastStatus });
   let out = {};

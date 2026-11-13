@@ -159,7 +159,7 @@ footer{font-size:13px;color:var(--ink3);padding-top:4px}
           <li><code>**texto**</code> va en negrita, por ejemplo <code>**Placa:** ABC-123</code></li>
           <li><code>• texto</code> viñeta · <code>1. texto</code> punto numerado</li>
           <li><code>Nombre: | EL SOL</code> dato en dos columnas alineadas</li>
-          <li><code>|| VÉRTICE | NORTE | ESTE</code> encabezado de tabla y debajo <code>1 | 9 274 | 644</code> por cada fila</li>
+          <li><code>|| VÉRTICE | NORTE | ESTE</code> encabezado de tabla y debajo <code>1 | 9 274 | 644</code> por cada fila; <code>&lt;br&gt;</code> parte el renglón dentro de una celda (dos nombres, dos coordenadas)</li>
         </ul></details>
       </div>
       <label for="fecha">Lugar y fecha<input id="fecha" type="text" placeholder="Lima, 20 de noviembre de 2026"></label>
@@ -275,14 +275,14 @@ function wid(w,b){const k=(b?"1":"0")+w;let v=WC.get(k);if(v==null){MDOC.setFont
 function toWords(s,forceBold){
   const out=[];let bold=false,sp=false;
   String(s).split("**").forEach((part,i)=>{if(i>0)bold=!bold;
-    part.split(/(\s+)/).forEach(p=>{if(!p)return;if(/^\s+$/.test(p)){sp=true;return;}out.push({w:p,b:forceBold||bold,sp:sp&&out.length>0});sp=false;});
+    part.split(/(\s+|<br\s*\/?>)/i).forEach(p=>{if(!p)return;if(/^<br/i.test(p)){out.push({br:1,w:"",b:false,sp:false});sp=false;return;}if(/^\s+$/.test(p)){sp=true;return;}out.push({w:p,b:forceBold||bold,sp:sp&&out.length>0&&!out[out.length-1].br});sp=false;});
   });
   return out;
 }
 const hasMark=s=>String(s).includes("**");
 function wrap(ws,width,fs){
   const lines=[];let cur=[],x=0,over=false;
-  ws.forEach(w=>{const wd=wid(w.w,w.b)*fs,gap=(cur.length&&w.sp)?wid(" ",w.b)*fs:0;
+  ws.forEach(w=>{if(w.br){lines.push({ws:cur,w:x,hard:1});cur=[];x=0;return;}const wd=wid(w.w,w.b)*fs,gap=(cur.length&&w.sp)?wid(" ",w.b)*fs:0;
     if(cur.length&&x+gap+wd>width){lines.push({ws:cur,w:x});cur=[];x=0;}
     const g=cur.length&&w.sp?wid(" ",w.b)*fs:0;cur.push({...w,g});x+=g+wd;if(wd>width+0.01)over=true;});
   if(cur.length)lines.push({ws:cur,w:x});
@@ -336,7 +336,7 @@ function layout(M,wmm,fs){
       else{x+=w.g;run={s:w.w,x,y:base,fs:size,b:w.b};ops.push(run);x+=ww;}});
   };
   const text=(ws,x0,width,size,align)=>{const {lines,over}=wrap(ws,width,size);if(over)bad=true;
-    lines.forEach((L,i)=>{y+=lh(size);place(L,x0,width,size,align,align==="justify"&&i<lines.length-1);});return lines.length;};
+    lines.forEach((L,i)=>{y+=lh(size);place(L,x0,width,size,align,align==="justify"&&i<lines.length-1&&!L.hard);});return lines.length;};
   const space=k=>{if(prev===null||prev==="gap")return 0;if(k==="li"&&prev==="li")return lh(fs)*0.08;if(k==="h2"||k==="h1")return lh(fs)*0.45;return lh(fs)*0.3;};
 
   // Encabezado
@@ -371,8 +371,8 @@ function layout(M,wmm,fs){
     const bord=tp.border,cp=bord?0.8:0.4,vp=bord?0.55:0.05,n=bk.n;
     const rows=bk.rows.map(r=>r.gap?r:{head:r.head,ws:r.cells.map(c=>toWords(c,r.head))});
     const nat=Array(n).fill(0),min=Array(n).fill(0);
-    rows.forEach(r=>{if(r.gap)return;r.ws.forEach((ws,c)=>{let w=0,mx=0;ws.forEach((x,i)=>{const ww=wid(x.w,x.b)*fs;w+=ww+(i&&x.sp?wid(" ",x.b)*fs:0);mx=Math.max(mx,ww);});
-      nat[c]=Math.max(nat[c],w+2*cp+(bord?0:1.2));min[c]=Math.max(min[c],mx+2*cp);});});
+    rows.forEach(r=>{if(r.gap)return;r.ws.forEach((ws,c)=>{let w=0,wm=0,mx=0;ws.forEach((x,i)=>{if(x.br){wm=Math.max(wm,w);w=0;return;}const ww=wid(x.w,x.b)*fs;w+=ww+(i&&x.sp?wid(" ",x.b)*fs:0);mx=Math.max(mx,ww);});
+      nat[c]=Math.max(nat[c],Math.max(w,wm)+2*cp+(bord?0:1.2));min[c]=Math.max(min[c],mx+2*cp);});});
     const sN=nat.reduce((a,b)=>a+b,0),sM=min.reduce((a,b)=>a+b,0);let W;
     if(sN<=iw){const extra=iw-sN;
       // datos en dos columnas: la etiqueta queda justa y el valor se lleva el resto; las tablas con encabezado reparten el espacio
@@ -466,8 +466,18 @@ function compute(){
     why.innerHTML=`<b>${rec.k} (${dec(rec.h)} × ${dec(rec.w)} cm)</b> es el formato más económico de esta tarifa donde el aviso entra con letra de ${fmtPt(rec.mf).replace(" o más","")} o más. ${alt?`Si querés que se lea más cómodo, <b>${alt.k}</b> permite ${fmtPt(alt.mf)} por ${money(alt.pr)}.`:""}`;}
   else if(rows.some(r=>r.fits&&r.pr==null)){const f=rows.filter(r=>r.fits&&r.pr==null).map(r=>r.k).join(", ");
     why.innerHTML=`El texto entra en <b>${f}</b>, pero ese formato no tiene precio en «${esc(T().variants.find(v=>v[0]===st.vr)[1])}». Probá con otro precio de la lista o una letra más chica.`;}
-  else why.innerHTML=`El texto no entra en los formatos de esta tarifa con letra de ${dec(min)} pt. Probá con una letra más chica u otra tarifa${M.body.some(b=>b.k==="tbl"&&b.n>4)?"; las tablas con muchas columnas necesitan formatos anchos":""}.`;
+  else{const o=otraTarifa(M,min);
+    why.innerHTML=`El texto no entra en los formatos de esta tarifa con letra de ${dec(min)} pt.`+(o?` En la tarifa <b>${esc(o.t.name)}</b> entra desde <b>${o.k}</b>. <button class="x" type="button" id="goTar">Cambiar a ${esc(o.t.name)}</button>`:` Probá con una letra más chica u otro diario${M.body.some(b=>b.k==="tbl"&&b.n>4)?"; las tablas con muchas columnas necesitan formatos anchos":""}.`);
+    if(o)$("goTar").onclick=()=>{st.tar=o.t.id;st.sel=null;syncSelectors();compute();};}
 }
+// Si no entra en la tarifa elegida, busca otra tarifa del mismo diario con formatos más grandes (avisos extensos, comunicados con tablas)
+function otraTarifa(M,min){const d=D();if(!d.mods)return null;
+  for(const t of d.tarifas){if(t.id===st.tar)continue;
+    const fit=t.formats.map(([k,p])=>{const [m,c]=k.split("x").map(Number);if(!d.mods[m-1]||!d.cols[c-1])return null;
+      const r=layout(M,d.cols[c-1]*10,min),vals=Object.values(p).filter(v=>v!=null);
+      return (!r.bad&&r.h<=d.mods[m-1]*10&&vals.length)?{k,pr:Math.min(...vals)}:null;}).filter(Boolean).sort((a,b)=>a.pr-b.pr);
+    if(fit.length)return {t,k:fit[0].k};}
+  return null;}
 function renderOpts(rec){
   const box=$("opts");box.innerHTML="";
   const vl=T().variants.find(v=>v[0]===st.vr)[1];
